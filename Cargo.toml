@@ -1,0 +1,11 @@
+[package]
+name = "aqablerweb"
+version = "0.1.0"
+authors = ["Zander Brown <ZanderBrown@users.noreply.github.com>"]
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+wasm-bindgen = "0.2"
+aqabler = { git = "https://github.com/ZanderBrown/aqabler" }

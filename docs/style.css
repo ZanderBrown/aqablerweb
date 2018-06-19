@@ -1,0 +1,91 @@
+body {
+	background: #e3e3e3;
+	display: flex;
+	flex-direction: column;
+}
+
+body, html {
+	height: 100%;
+	padding: 0px;
+	margin: 0px;
+}
+
+body > header {
+	background: #3030d8;
+	color: white;
+	position: sticky;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+}
+
+body > header img {
+	padding: 0px;
+	float: left;
+}
+
+body > header span {
+	line-height: 42px;
+}
+
+body > header button {
+	float: right;
+	background: red;
+	border: none;
+	color: black;
+}
+
+body > header * {
+	padding-left: 25px;
+	padding-right: 25px;
+	height: 42px;
+}
+
+body > footer {
+	background: black;
+	color: white;
+	padding: 5px;
+	flex-shrink: 0;
+}
+
+body > footer a {
+	float: right;
+	color: white !important;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+main {
+	padding: 8px;
+	clear: both;
+	flex: 1 0 auto;
+}
+
+main textarea {
+	max-width: 250px;
+	width: 100%;
+	height: 100%;
+}
+
+main textarea, main section {
+	padding: 16px;
+	margin: 0px;
+	border: none;
+}
+
+main section {
+	float: right;
+}
+
+main section table {
+	float: right;
+	min-width: 200px;
+}
+
+#result {
+	text-align: right;
+}
+
+.regs {
+	width: 50px;
+}
