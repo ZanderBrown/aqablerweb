@@ -10,7 +10,7 @@ gulp: faviconData.json
 	gulp
 
 faviconData.json:
-	gulp generate-favicon
+	gulp favicons
 
 clean:
 	rm -rf docs

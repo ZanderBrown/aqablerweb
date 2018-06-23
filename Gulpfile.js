@@ -20,7 +20,7 @@ gulp.task('js', () => {
 		.pipe(gulp.dest(dest));
 });
 
-gulp.task('assets', ['less'], () => {
+gulp.task('assets', ['less', 'html'], () => {
 	return gulp.src([
 		'logo.svg',
 		'style.css',
@@ -36,11 +36,11 @@ gulp.task('less', function () {
 });
 
 var FAVICON_DATA_FILE = 'faviconData.json';
-gulp.task('generate-favicon', function (done) {
+gulp.task('favicons', function (done) {
 	favicon.generateFavicon({
 		masterPicture: './favicon.png',
 		dest: './icons',
-		iconsPath: '/',
+		iconsPath: '/aqablerweb/',
 		design: {
 			ios: {
 				pictureAspect: 'backgroundAndMargin',
@@ -106,7 +106,7 @@ gulp.task('generate-favicon', function (done) {
 	});
 });
 
-gulp.task('html', () => {
+gulp.task('html', ['favicons'], () => {
 	return gulp.src(['index.html'])
 		.pipe(favicon.injectFaviconMarkups(JSON.parse(fs.readFileSync(FAVICON_DATA_FILE)).favicon.html_code))
 		.pipe(gulp.dest(dest));
