@@ -23,8 +23,16 @@ window.regs_reset = () => {
 }
 
 aqabler.then(aqabler => {
+	result.innerText = "Ready";
 	run.addEventListener("click", () => {
 		let program = source.value;
 		result.innerText = aqabler.run(program);
+		setTimeout(() => {
+			if (result.innerText != "Success") {
+				result.classList.add("error");
+			} else {
+				result.classList.remove("error");
+			}
+		}, 0);
 	});
 });
