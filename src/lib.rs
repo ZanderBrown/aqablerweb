@@ -14,7 +14,7 @@ use aqabler::Storage;
 
 #[wasm_bindgen]
 extern {
-    fn regs_add_row(reg: usize, val: isize);
+    fn regs_add_row(reg: usize, val: String);
     fn regs_reset();
 }
 
@@ -22,7 +22,11 @@ fn show_regs(regs: Registers) {
     regs_reset();
     // Show the end state of the registers
     for (i, v) in regs.iter().enumerate() {
-        regs_add_row(i, *v);
+        if *v > 9 {
+            regs_add_row(i, format!("{:X} ({})", v, v));
+        } else {
+            regs_add_row(i, format!("{:X}", v));
+        }
     }
 }
 
