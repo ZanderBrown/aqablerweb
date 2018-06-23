@@ -98,6 +98,9 @@ body section .registers table td:first-child {
   padding-right: 5px;
   text-align: right;
 }
+body section .registers.hidden {
+  display: none;
+}
 body,
 html {
   height: 100%;

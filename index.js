@@ -3,6 +3,7 @@ const aqabler = import("./aqablerweb");
 let source = document.getElementById("source");
 let result = document.getElementById("result");
 let registers = document.getElementById("registers");
+let registerswrap = document.querySelector('.registers');
 let run = document.getElementById("run");
 
 window.regs_add_row = (regnum, value) => {
@@ -22,17 +23,31 @@ window.regs_reset = () => {
 	}
 }
 
+function show_message(msg) {
+	result.innerText = msg;
+	setTimeout(() => {
+		if (result.innerText != "Success" && result.innerText != "Ready") {
+			result.classList.add("error");
+		} else {
+			result.classList.remove("error");
+		}
+	}, 0);
+}
+
 aqabler.then(aqabler => {
-	result.innerText = "Ready";
+	show_message("Ready");
+	let first = true;
 	run.addEventListener("click", () => {
-		let program = source.value;
-		result.innerText = aqabler.run(program);
-		setTimeout(() => {
-			if (result.innerText != "Success") {
-				result.classList.add("error");
-			} else {
-				result.classList.remove("error");
+		try {
+			if (first) {
+				first = false;
+				registerswrap.classList.remove('hidden');
 			}
-		}, 0);
+			let program = source.value;
+			show_message(aqabler.run(program));
+		} catch (e) {
+			show_message("Internal Error");
+			console.exception(e);
+		}
 	});
 });
