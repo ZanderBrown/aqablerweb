@@ -1,7 +1,51 @@
+@header-height: 2.5rem;
+@footer-height: 1.2rem;
+
 body {
 	background: #e3e3e3;
-	display: flex;
-	flex-direction: column;
+
+	display: grid;
+	grid-template: "header header" @header-height
+	"source section" auto
+	"footer footer" @footer-height;
+
+	textarea, section {
+		padding: 16px;
+		margin: 0px;
+		border: none;
+	}
+
+	textarea {
+		max-width: 250px;
+		width: 100%;
+		grid-area: source;
+		resize: none;
+		margin: 10px;
+		box-shadow: 0 0 3px 1px #bfb7b7;
+		border-radius: 2px;
+		background: #f7f7f7;
+		color: #2f2f2f;
+		transition-property: color, background, box-shadow;
+		transition-duration: 0.2s;
+		transition-timing-function: ease-in;
+		font-family: 'Courier New', Courier, monospace;
+
+		&:focus {
+			box-shadow: 0 0 3px 1px #918585;
+			background: white;
+			outline: none;
+			color: black;
+		}
+	}
+
+	section {
+		grid-area: section;
+
+		table {
+			float: right;
+			min-width: 200px;
+		}
+	}
 }
 
 body, html {
@@ -14,24 +58,19 @@ body > {
 	header {
 		background: #3030d8;
 		color: white;
-		position: sticky;
-		top: 0px;
-		left: 0px;
-		right: 0px;
+		grid-area: header;
+		height: @header-height;
+		line-height: @header-height;
 
 		* {
 			padding-left: 25px;
 			padding-right: 25px;
-			height: 42px;
+			height: @header-height;
 		}
 
 		img {
 			padding: 0px;
 			float: left;
-		}
-
-		span {
-			line-height: 42px;
 		}
 
 		button {
@@ -45,8 +84,9 @@ body > {
 	footer {
 		background: black;
 		color: white;
-		padding: 5px;
-		flex-shrink: 0;
+		grid-area: footer;
+		height: @footer-height;
+		line-height: @footer-height;
 
 		a {
 			float: right;
@@ -57,33 +97,6 @@ body > {
 	}
 }
 
-
-main {
-	padding: 8px;
-	clear: both;
-	flex: 1 0 auto;
-
-	textarea, section {
-		padding: 16px;
-		margin: 0px;
-		border: none;
-	}
-
-	textarea {
-		max-width: 250px;
-		width: 100%;
-		height: 100%;
-	}
-
-	section {
-		float: right;
-
-		table {
-			float: right;
-			min-width: 200px;
-		}
-	}
-}
 
 #result {
 	text-align: right;
