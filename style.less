@@ -36,10 +36,10 @@ body {
 	grid-template: "header header" @header-height
 	"source section" auto
 	"footer footer" @footer-height
-	~"/" minmax(15rem, 250px) auto;
+	~"/" 15rem auto;
 	@media (max-width: 450px) {
 		grid-template: "header" @header-height
-		"source" auto
+		"source" minmax(10rem, 60vh)
 		"section" auto
 		"footer" @footer-height;
 	}
@@ -55,8 +55,39 @@ body {
 	section {
 		grid-area: section;
 
-		table {
-			min-width: 200px;
+		#result {
+			.card();
+
+			&.error {
+				animation: pulse-err 3s infinite;
+			}
+		}
+
+		.registers {
+			.card();
+			padding: 0;
+
+			div {
+				padding: 0.5rem;
+				border-bottom: 1px solid #e7e7e7;
+			}
+
+			table {
+				border-collapse: collapse;
+
+				.regs {
+					background: #e7e7e7;
+				}
+
+				td {
+					padding: 2px;
+					&:first-child {
+						padding-left: 20px;
+						padding-right: 5px;
+						text-align: right;
+					}
+				}
+			}
 		}
 	}
 }
@@ -108,17 +139,4 @@ body > {
 			padding-right: 5px;
 		}
 	}
-}
-
-
-#result {
-	.card();
-
-	&.error {
-		animation: pulse-err 3s infinite;
-	}
-}
-
-.regs {
-	width: 50px;
 }

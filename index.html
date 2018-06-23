@@ -1,34 +1,39 @@
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.png">
-    <title>Aqabler</title>
-  </head>
-  <body>
-    <header>
-      <img src="logo.svg">
-      <span>Aqabler</span>
-      <button id="run">Run</button>
-    </header>
-    <textarea id="source" spellcheck="false">MOV R0, #42</textarea>
-    <section>
-      <div id="result">Please Wait...</div>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.png">
+  <title>Aqabler</title>
+</head>
+
+<body>
+  <header>
+    <img src="logo.svg">
+    <span>Aqabler</span>
+    <button id="run">Run</button>
+  </header>
+  <textarea id="source" spellcheck="false">MOV R0, #42</textarea>
+  <section>
+    <div id="result">Please Wait...</div>
+    <div class="registers">
+      <div>Registers</div>
       <table>
-        <thead>
-          <colgroup>
-            <col class="regs">
-          </colgroup>
-        </thead>
+        <colgroup>
+          <col class="regs">
+          <col>
+        </colgroup>
         <tbody id="registers">
         </tbody>
       </table>
-    </section>
-    <footer>
-      &copy; Zander Brown
-      <a href="https://github.com/ZanderBrown/aqabler">View on GitHub</a>
-    </footer>
-    <script src="index.js"></script>
-  </body>
+    </div>
+  </section>
+  <footer>
+    &copy; Zander Brown
+    <a href="https://github.com/ZanderBrown/aqabler">View on GitHub</a>
+  </footer>
+  <script src="index.js"></script>
+</body>
+
 </html>

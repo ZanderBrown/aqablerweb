@@ -1,10 +1,10 @@
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <link rel="stylesheet" href="style.css">
-    <title>Aqabler</title>
-  <link rel="apple-touch-icon" sizes="180x180" href="/aqablerweb/apple-touch-icon.png">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <link rel="stylesheet" href="style.css">
+  <title>Aqabler</title>
+<link rel="apple-touch-icon" sizes="180x180" href="/aqablerweb/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/aqablerweb/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/aqablerweb/favicon-16x16.png">
 <link rel="manifest" href="/aqablerweb/site.webmanifest">
@@ -16,29 +16,31 @@
 <meta name="msapplication-TileImage" content="/aqablerweb/mstile-144x144.png">
 <meta name="msapplication-config" content="/aqablerweb/browserconfig.xml">
 <meta name="theme-color" content="#0000ff"></head>
-  <body>
-    <header>
-      <img src="logo.svg">
-      <span>Aqabler</span>
-      <button id="run">Run</button>
-    </header>
-    <textarea id="source" spellcheck="false">MOV R0, #42</textarea>
-    <section>
-      <div id="result">Please Wait...</div>
+<body>
+  <header>
+    <img src="logo.svg">
+    <span>Aqabler</span>
+    <button id="run">Run</button>
+  </header>
+  <textarea id="source" spellcheck="false">MOV R0, #42</textarea>
+  <section>
+    <div id="result">Please Wait...</div>
+    <div class="registers">
+      <div>Registers</div>
       <table>
-        <thead>
-          <colgroup>
-            <col class="regs">
-          </colgroup>
-        </thead>
+        <colgroup>
+          <col class="regs">
+          <col>
+        </colgroup>
         <tbody id="registers">
         </tbody>
       </table>
-    </section>
-    <footer>
-      &copy; Zander Brown
-      <a href="https://github.com/ZanderBrown/aqabler">View on GitHub</a>
-    </footer>
-    <script src="index.js"></script>
-  </body>
+    </div>
+  </section>
+  <footer>
+    &copy; Zander Brown
+    <a href="https://github.com/ZanderBrown/aqabler">View on GitHub</a>
+  </footer>
+  <script src="index.js"></script>
+</body>
 </html>
