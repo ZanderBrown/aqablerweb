@@ -1,6 +1,6 @@
 const gulp = require('gulp');
 const webpack = require('webpack-stream');
-const sourcemaps = require('gulp-sourcemaps');
+const less = require('gulp-less');
 const favicon = require('gulp-real-favicon');
 const fs = require('fs');
 
@@ -10,7 +10,6 @@ gulp.task('default', ['js', 'html', 'assets']);
 
 gulp.task('js', () => {
 	return gulp.src(['./*.js', './*.wasm'])
-		.pipe(sourcemaps.init())
 		.pipe(webpack({
 			entry: "./index.js",
 			output: {
@@ -21,13 +20,19 @@ gulp.task('js', () => {
 		.pipe(gulp.dest(dest));
 });
 
-gulp.task('assets', () => {
+gulp.task('assets', ['less'], () => {
 	return gulp.src([
 		'logo.svg',
 		'style.css',
 		'./icons/*'
 	])
 		.pipe(gulp.dest(dest));
+});
+
+gulp.task('less', function () {
+	return gulp.src('./*.less')
+		.pipe(less())
+		.pipe(gulp.dest('.'));
 });
 
 var FAVICON_DATA_FILE = 'faviconData.json';
