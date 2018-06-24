@@ -3,6 +3,8 @@ const webpack = require('webpack-stream');
 const less = require('gulp-less');
 const favicon = require('gulp-real-favicon');
 const fs = require('fs');
+const mincss = require('gulp-clean-css');
+const minhtml = require('gulp-htmlmin');
 
 const dest = './docs/';
 
@@ -20,12 +22,18 @@ gulp.task('js', () => {
 		.pipe(gulp.dest(dest));
 });
 
-gulp.task('assets', ['less', 'html'], () => {
+gulp.task('assets', ['css', 'html'], () => {
 	return gulp.src([
 		'logo.svg',
-		'style.css',
-		'./icons/*'
+		'./icons/*',
+		'robots.txt'
 	])
+		.pipe(gulp.dest(dest));
+});
+
+gulp.task('css', ['less'], function () {
+	return gulp.src('./*.css')
+		.pipe(mincss())
 		.pipe(gulp.dest(dest));
 });
 
@@ -44,7 +52,7 @@ gulp.task('favicons', function (done) {
 		design: {
 			ios: {
 				pictureAspect: 'backgroundAndMargin',
-				backgroundColor: '#0000ff',
+				backgroundColor: '#3030d8',
 				margin: '0%',
 				assets: {
 					ios6AndPriorIcons: false,
@@ -57,7 +65,7 @@ gulp.task('favicons', function (done) {
 			desktopBrowser: {},
 			windows: {
 				pictureAspect: 'whiteSilhouette',
-				backgroundColor: '#0000ff',
+				backgroundColor: '#3030d8',
 				onConflict: 'override',
 				assets: {
 					windows80Ie10Tile: false,
@@ -72,7 +80,7 @@ gulp.task('favicons', function (done) {
 			},
 			androidChrome: {
 				pictureAspect: 'noChange',
-				themeColor: '#0000ff',
+				themeColor: '#3030d8',
 				manifest: {
 					name: 'Aqabler',
 					startUrl: 'https://zanderbrown.github.io/aqablerweb/',
@@ -89,7 +97,7 @@ gulp.task('favicons', function (done) {
 			safariPinnedTab: {
 				pictureAspect: 'blackAndWhite',
 				threshold: 66.40625,
-				themeColor: '#0000ff'
+				themeColor: '#3030d8'
 			}
 		},
 		settings: {
@@ -109,5 +117,6 @@ gulp.task('favicons', function (done) {
 gulp.task('html', ['favicons'], () => {
 	return gulp.src(['index.html'])
 		.pipe(favicon.injectFaviconMarkups(JSON.parse(fs.readFileSync(FAVICON_DATA_FILE)).favicon.html_code))
+		.pipe(minhtml({collapseWhitespace: true}))
 		.pipe(gulp.dest(dest));
 });

@@ -13,8 +13,8 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#0000ff",
-    "background_color": "#0000ff",
+    "theme_color": "#3030d8",
+    "background_color": "#3030d8",
     "start_url": "https://zanderbrown.github.io/aqablerweb/",
     "display": "standalone"
 }

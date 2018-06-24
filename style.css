@@ -80,7 +80,7 @@ body section .registers:focus {
   outline: none;
   color: black;
 }
-body section .registers div {
+body section .registers .title {
   padding: 0.5rem;
   border-bottom: 1px solid #e7e7e7;
 }
@@ -115,9 +115,12 @@ body header {
   line-height: 2.5rem;
 }
 body header * {
-  padding-left: 25px;
-  padding-right: 25px;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
   height: 2.5rem;
+}
+body header span {
+  padding-left: .5rem;
 }
 body header img {
   padding: 0px;

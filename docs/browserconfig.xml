@@ -6,7 +6,7 @@
             <square150x150logo src="/aqablerweb/mstile-150x150.png"/>
             <square310x310logo src="/aqablerweb/mstile-310x310.png"/>
             <wide310x150logo src="/aqablerweb/mstile-310x150.png"/>
-            <TileColor>#0000ff</TileColor>
+            <TileColor>#3030d8</TileColor>
         </tile>
     </msapplication>
 </browserconfig>
