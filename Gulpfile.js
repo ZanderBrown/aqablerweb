@@ -10,12 +10,26 @@ const dest = './docs/';
 
 gulp.task('default', ['js', 'html', 'assets']);
 
-gulp.task('js', () => {
-	return gulp.src(['./*.js', './*.wasm'])
+gulp.task('js', ['js-index', 'js-service']);
+
+gulp.task('js-index', () => {
+	return gulp.src(['./index.js', './*.wasm'])
 		.pipe(webpack({
 			entry: "./index.js",
 			output: {
-				filename: "index.js",
+				filename: "index.js"
+			},
+			mode: "production"
+		}, require("webpack")))
+		.pipe(gulp.dest(dest));
+});
+
+gulp.task('js-service', () => {
+	return gulp.src(['./service.js'])
+		.pipe(webpack({
+			entry: "./service.js",
+			output: {
+				filename: "service.js"
 			},
 			mode: "production"
 		}, require("webpack")))
