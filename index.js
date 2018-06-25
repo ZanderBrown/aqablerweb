@@ -52,6 +52,12 @@ window.addEventListener('load', () => {
 			}
 		});
 	});
+
+	for (let elm of document.querySelectorAll('.reference .heading')) {
+		elm.addEventListener('click', e => {
+			e.target.nextElementSibling.classList.toggle("expanded");
+		});
+	}
 });
 
 if ('serviceWorker' in navigator) {

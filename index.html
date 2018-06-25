@@ -17,10 +17,10 @@
     <span>Aqabler</span>
     <button id="run">Run</button>
   </header>
-  <textarea id="source" spellcheck="false" aria-label="Source Code">MOV R0, #42</textarea>
+  <textarea class="card" id="source" spellcheck="false" aria-label="Source Code">MOV R0, #42</textarea>
   <section>
-    <div id="result">Please Wait...</div>
-    <div class="registers hidden">
+    <div class="card" id="result">Please Wait...</div>
+    <div class="card registers hidden">
       <div class="title">Registers</div>
       <table>
         <colgroup>
@@ -30,6 +30,42 @@
         <tbody id="registers">
         </tbody>
       </table>
+    </div>
+    <div class="card reference">
+      <div class="title">Reference</div>
+      <p class="heading">Memory</p>
+      <ul>
+        <li>LDR</li>
+        <li>STR</li>
+        <li>MOV</li>
+      </ul>
+      <p class="heading">Arithmetic</p>
+      <ul>
+        <li>ADD</li>
+        <li>SUB</li>
+      </ul>
+      <p class="heading">Branching</p>
+      <ul>
+        <li>CMP</li>
+        <li>B</li>
+        <li>BEQ</li>
+        <li>BNE</li>
+        <li>BGT</li>
+        <li>BLT</li>
+      </ul>
+      <p class="heading">Bitwise</p>
+      <ul>
+        <li>AND</li>
+        <li>ORR</li>
+        <li>EOR</li>
+        <li>MVN</li>
+        <li>LSL</li>
+        <li>LSR</li>
+      </ul>
+      <p class="heading">Other</p>
+      <ul>
+        <li>HALT</li>
+      </ul>
     </div>
   </section>
   <footer>

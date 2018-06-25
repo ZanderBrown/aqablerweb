@@ -1,8 +1,8 @@
 @header-height: 2.5rem;
 @footer-height: 1.2rem;
 
-.card() {
-	margin: 10px;
+.card {
+	margin: 1rem;
 	box-shadow: 0 0 3px 1px #bfb7b7;
 	border-radius: 2px;
 	background: #f7f7f7;
@@ -11,6 +11,12 @@
 	transition-property: color, background, box-shadow;
 	transition-duration: 0.2s;
 	transition-timing-function: ease-in;
+
+	.title {
+		padding: 0.5rem;
+		border-bottom: 1px solid #e7e7e7;
+		font-size: 1rem;
+	}
 
 	&:focus {
 		box-shadow: 0 0 3px 1px #918585;
@@ -37,7 +43,7 @@ body {
 	"source section" auto
 	"footer footer" @footer-height
 	~"/" 15rem auto;
-	@media (max-width: 450px) {
+	@media (max-width: 35rem) {
 		grid-template: "header" @header-height
 		"source" minmax(10rem, 60vh)
 		"section" auto
@@ -45,7 +51,6 @@ body {
 	}
 
 	textarea {
-		.card();
 		border: none;
 		grid-area: source;
 		resize: none;
@@ -56,21 +61,42 @@ body {
 		grid-area: section;
 
 		#result {
-			.card();
-
 			&.error {
 				animation: pulse-err 3s infinite;
 			}
 		}
 
-		.registers {
-			.card();
+		.reference {
 			padding: 0;
 
-			.title {
+			p.heading {
 				padding: 0.5rem;
-				border-bottom: 1px solid #e7e7e7;
+				margin: 0;
+				font-size: 0.9rem;
+				border-top: 1px solid #e7e7e7;
+				&:first-of-type {
+					border: none;
+				}
 			}
+			ul {
+				padding: 0;
+				margin: 0;
+				list-style: none;
+				overflow: hidden;
+				max-height: 0;
+				transition: max-height 0.3s ease;
+				&.expanded {
+					max-height: 1024px;
+				}
+
+				li {
+					padding: 0.3rem 0.5rem;
+				}
+			}
+		}
+
+		.registers {
+			padding: 0;
 
 			table {
 				border-collapse: collapse;
@@ -121,7 +147,7 @@ body > {
 		}
 
 		img {
-			padding: 0px;
+			padding: 0;
 			float: left;
 		}
 
@@ -143,8 +169,8 @@ body > {
 		a {
 			float: right;
 			color: white !important;
-			padding-left: 5px;
-			padding-right: 5px;
+			padding-left: 1rem;
+			padding-right: 1rem;
 		}
 	}
 }
