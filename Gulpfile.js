@@ -17,6 +17,7 @@ gulp.task('js-index', () => {
 		.pipe(webpack({
 			entry: "./index.js",
 			output: {
+				webassemblyModuleFilename: "aqabler.wasm",
 				filename: "index.js"
 			},
 			mode: "production"
@@ -131,6 +132,6 @@ gulp.task('favicons', function (done) {
 gulp.task('html', ['favicons'], () => {
 	return gulp.src(['index.html'])
 		.pipe(favicon.injectFaviconMarkups(JSON.parse(fs.readFileSync(FAVICON_DATA_FILE)).favicon.html_code))
-		.pipe(minhtml({collapseWhitespace: true}))
+		.pipe(minhtml({ collapseWhitespace: true }))
 		.pipe(gulp.dest(dest));
 });

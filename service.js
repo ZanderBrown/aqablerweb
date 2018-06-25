@@ -10,6 +10,7 @@ self.addEventListener('install', e => {
 				`index.js`,
 				`0.index.js`,
 				`logo.svg`,
+				`aqabler.wasm`
 			]).catch(e => console.log(e))
 				.then(() => self.skipWaiting());
 		})
