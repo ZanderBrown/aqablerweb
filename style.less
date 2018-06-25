@@ -1,176 +1,170 @@
 @header-height: 2.5rem;
 @footer-height: 1.2rem;
-
 .card {
-	margin: 1rem;
-	box-shadow: 0 0 3px 1px #bfb7b7;
-	border-radius: 2px;
-	background: #f7f7f7;
-	color: #2f2f2f;
-	padding: 0.5rem;
-	transition-property: color, background, box-shadow;
-	transition-duration: 0.2s;
-	transition-timing-function: ease-in;
+    margin: 1rem;
+    box-shadow: 0 0 3px 1px #bfb7b7;
+    border-radius: 2px;
+    background: #f7f7f7;
+    color: #2f2f2f;
+    padding: 0.5rem;
+    transition-property: color, background, box-shadow;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in;
+    .title {
+        padding: 0.5rem;
+        border-bottom: 1px solid #e7e7e7;
+        font-size: 1rem;
+    }
+    &:focus {
+        box-shadow: 0 0 3px 1px #918585;
+        background: white;
+        outline: none;
+        color: black;
+    }
+}
 
-	.title {
-		padding: 0.5rem;
-		border-bottom: 1px solid #e7e7e7;
-		font-size: 1rem;
-	}
-
-	&:focus {
-		box-shadow: 0 0 3px 1px #918585;
-		background: white;
-		outline: none;
-		color: black;
-	}
+.hack01 {
+    overflow: hidden;
+    height: 0px;
+    width: 0px;
 }
 
 @keyframes pulse-err {
-	0%, 100% {
-		box-shadow: 0 0 3px 1px #bfb7b7;
-	}
-	10%, 90% {
-		box-shadow: 0 0 3px 1px #bb1616;
-	}
+    0%,
+    100% {
+        box-shadow: 0 0 3px 1px #bfb7b7;
+    }
+    10%,
+    90% {
+        box-shadow: 0 0 3px 1px #bb1616;
+    }
 }
 
 body {
-	background: #e3e3e3;
-
-	display: grid;
-	grid-template: "header header" @header-height
-	"source section" auto
-	"footer footer" @footer-height
-	~"/" 15rem auto;
-	@media (max-width: 35rem) {
-		grid-template: "header" @header-height
-		"source" minmax(10rem, 60vh)
-		"section" auto
-		"footer" @footer-height;
-	}
-
-	textarea {
-		border: none;
-		grid-area: source;
-		resize: none;
-		font-family: 'Courier New', Courier, monospace;
-	}
-
-	section {
-		grid-area: section;
-
-		#result {
-			&.error {
-				animation: pulse-err 3s infinite;
-			}
-		}
-
-		.reference {
-			padding: 0;
-
-			p.heading {
-				padding: 0.5rem;
-				margin: 0;
-				font-size: 0.9rem;
-				border-top: 1px solid #e7e7e7;
-				&:first-of-type {
-					border: none;
-				}
-			}
-			ul {
-				padding: 0;
-				margin: 0;
-				list-style: none;
-				overflow: hidden;
-				max-height: 0;
-				transition: max-height 0.3s ease;
-				&.expanded {
-					max-height: 1024px;
-				}
-
-				li {
-					padding: 0.3rem 0.5rem;
-				}
-			}
-		}
-
-		.registers {
-			padding: 0;
-
-			table {
-				border-collapse: collapse;
-
-				.regs {
-					background: #e7e7e7;
-				}
-
-				td {
-					padding: 2px;
-					&:first-child {
-						padding-left: 20px;
-						padding-right: 5px;
-						text-align: right;
-					}
-				}
-			}
-
-			&.hidden {
-				display: none;
-			}
-		}
-	}
+    background: #e3e3e3;
+    display: grid;
+    grid-template: "header" @header-height "source" minmax(10rem, 60vh) "main" auto "reference" auto "footer" @footer-height;
+    @media (min-width: 35rem) {
+        grid-template: "header header" @header-height "source main" auto "source reference" auto "footer footer" @footer-height ~"/" 15rem auto;
+    }
+    @media (min-width: 80rem) {
+        grid-template: "header header header" @header-height "source main reference" auto "footer footer footer" @footer-height ~"/" 15rem 40rem auto;
+    }
+    textarea {
+        border: none;
+        grid-area: source;
+        resize: none;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    section {
+        max-width: 40rem;
+    }
+    section.main {
+        grid-area: main;
+        #result {
+            &.error {
+                animation: pulse-err 3s infinite;
+            }
+        }
+        .registers {
+            padding: 0;
+            table {
+                border-collapse: collapse;
+                .regs {
+                    background: #e7e7e7;
+                }
+                td {
+                    padding: 2px;
+                    &:first-child {
+                        padding-left: 20px;
+                        padding-right: 5px;
+                        text-align: right;
+                    }
+                }
+            }
+            &.hidden {
+                display: none;
+            }
+        }
+    }
+    section.reference {
+        grid-area: reference;
+        @media (min-width: 35rem) and (max-width: 80rem) {
+            align-self: flex-end;
+        }
+        div {
+            padding: 0;
+            p.heading {
+                padding: 0.5rem;
+                margin: 0;
+                font-size: 0.9rem;
+                border-top: 1px solid #e7e7e7;
+                &:first-of-type {
+                    border: none;
+                }
+            }
+            ul {
+                padding: 0;
+                margin: 0;
+                list-style: none;
+                overflow: hidden;
+                max-height: 0;
+                transition: max-height 0.3s ease;
+                &.expanded {
+                    max-height: 1024px;
+                }
+                li {
+                    padding: 0.3rem 0.5rem;
+                }
+            }
+        }
+    }
 }
 
-body, html {
-	height: 100%;
-	padding: 0px;
-	margin: 0px;
+body,
+html {
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
 }
 
-body > {
-	header {
-		background: #3030d8;
-		color: white;
-		grid-area: header;
-		height: @header-height;
-		line-height: @header-height;
-
-		* {
-			padding-left: 1.5rem;
-			padding-right: 1.5rem;
-			height: @header-height;
-		}
-
-		span {
-			padding-left: .5rem;
-		}
-
-		img {
-			padding: 0;
-			float: left;
-		}
-
-		button {
-			float: right;
-			background: red;
-			border: none;
-			color: black;
-		}
-	}
-
-	footer {
-		background: black;
-		color: white;
-		grid-area: footer;
-		height: @footer-height;
-		line-height: @footer-height;
-
-		a {
-			float: right;
-			color: white !important;
-			padding-left: 1rem;
-			padding-right: 1rem;
-		}
-	}
+body {
+    header {
+        background: #3030d8;
+        color: white;
+        grid-area: header;
+        height: @header-height;
+        line-height: @header-height;
+        * {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+            height: @header-height;
+        }
+        span {
+            padding-left: .5rem;
+        }
+        img {
+            padding: 0;
+            float: left;
+        }
+        button {
+            float: right;
+            background: red;
+            border: none;
+            color: black;
+        }
+    }
+    footer {
+        background: black;
+        color: white;
+        grid-area: footer;
+        height: @footer-height;
+        line-height: @footer-height;
+        a {
+            float: right;
+            color: white !important;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+    }
 }

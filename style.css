@@ -20,6 +20,11 @@
   outline: none;
   color: black;
 }
+.hack01 {
+  overflow: hidden;
+  height: 0px;
+  width: 0px;
+}
 @keyframes pulse-err {
   0%,
   100% {
@@ -33,11 +38,16 @@
 body {
   background: #e3e3e3;
   display: grid;
-  grid-template: "header header" 2.5rem "source section" auto "footer footer" 1.2rem / 15rem auto;
+  grid-template: "header" 2.5rem "source" minmax(10rem, 60vh) "main" auto "reference" auto "footer" 1.2rem;
 }
-@media (max-width: 35rem) {
+@media (min-width: 35rem) {
   body {
-    grid-template: "header" 2.5rem "source" minmax(10rem, 60vh) "section" auto "footer" 1.2rem;
+    grid-template: "header header" 2.5rem "source main" auto "source reference" auto "footer footer" 1.2rem / 15rem auto;
+  }
+}
+@media (min-width: 80rem) {
+  body {
+    grid-template: "header header header" 2.5rem "source main reference" auto "footer footer footer" 1.2rem / 15rem 40rem auto;
   }
 }
 body textarea {
@@ -47,24 +57,55 @@ body textarea {
   font-family: 'Courier New', Courier, monospace;
 }
 body section {
-  grid-area: section;
+  max-width: 40rem;
 }
-body section #result.error {
+body section.main {
+  grid-area: main;
+}
+body section.main #result.error {
   animation: pulse-err 3s infinite;
 }
-body section .reference {
+body section.main .registers {
   padding: 0;
 }
-body section .reference p.heading {
+body section.main .registers table {
+  border-collapse: collapse;
+}
+body section.main .registers table .regs {
+  background: #e7e7e7;
+}
+body section.main .registers table td {
+  padding: 2px;
+}
+body section.main .registers table td:first-child {
+  padding-left: 20px;
+  padding-right: 5px;
+  text-align: right;
+}
+body section.main .registers.hidden {
+  display: none;
+}
+body section.reference {
+  grid-area: reference;
+}
+@media (min-width: 35rem) and (max-width: 80rem) {
+  body section.reference {
+    align-self: flex-end;
+  }
+}
+body section.reference div {
+  padding: 0;
+}
+body section.reference div p.heading {
   padding: 0.5rem;
   margin: 0;
   font-size: 0.9rem;
   border-top: 1px solid #e7e7e7;
 }
-body section .reference p.heading:first-of-type {
+body section.reference div p.heading:first-of-type {
   border: none;
 }
-body section .reference ul {
+body section.reference div ul {
   padding: 0;
   margin: 0;
   list-style: none;
@@ -72,31 +113,11 @@ body section .reference ul {
   max-height: 0;
   transition: max-height 0.3s ease;
 }
-body section .reference ul.expanded {
+body section.reference div ul.expanded {
   max-height: 1024px;
 }
-body section .reference ul li {
+body section.reference div ul li {
   padding: 0.3rem 0.5rem;
-}
-body section .registers {
-  padding: 0;
-}
-body section .registers table {
-  border-collapse: collapse;
-}
-body section .registers table .regs {
-  background: #e7e7e7;
-}
-body section .registers table td {
-  padding: 2px;
-}
-body section .registers table td:first-child {
-  padding-left: 20px;
-  padding-right: 5px;
-  text-align: right;
-}
-body section .registers.hidden {
-  display: none;
 }
 body,
 html {
