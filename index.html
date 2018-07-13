@@ -54,6 +54,7 @@
         </ul>
         <p class="heading">Branching</p>
         <ul>
+          <li>Branching Overview</li>
           <li>CMP</li>
           <li>B</li>
           <li>BEQ</li>
@@ -152,6 +153,85 @@
         <code>regs[dest] ← regs[source] - number</code>
         <p><strong>Name</strong></p>
         <p><em>S</em><em>U</em><em>B</em>tract</p>
+      </div>
+      <div id="ref-cmp" class="page hidden">
+        <p>Compare a register to another register or number, only useful when followed by a conditional branch</p>
+        <p><strong>Syntax</strong></p>
+        <p>CMP R<em>val</em>, R<em>other</em></p>
+        <p>CMP R<em>val</em>, #<em>number</em></p>
+        <p><strong>Example</strong></p>
+        <code>CMP R0, R1</code>
+        <p>Compare the values of register 0 &amp; register 1</p>
+        <code>ADD R0, #100</code>
+        <p>Compare register 0s value to 100</p>
+        <p><strong>Pseudocode</strong></p>
+        <p>When given a register</p>
+        <pre><code>IF regs[val] = regs[other] THEN
+  flag ← "equal"
+ELSE IF regs[val] &lt; regs[other] THEN
+  flag ← "less"
+ELSE
+  flag ← "greater"
+END IF</code></pre>
+        <p>When given a number</p>
+        <pre><code>IF regs[val] = number THEN
+  flag ← "equal"
+ELSE IF regs[val] &lt; number THEN
+  flag ← "less"
+ELSE
+  flag ← "greater"
+END IF</code></pre>
+        <p><strong>Name</strong></p>
+        <p><em>C</em>o<em>M</em><em>P</em>are</p>
+      </div>
+      <div id="ref-branching-overview" class="page hidden">
+        <p>Branching is an important low level construct but is rarely seen in higher level languages</p>
+        <p>Those that do include branching generally refer to it as 'GOTOs', as is the case in BASIC, C/C++ &amp; C#</p>
+        <p>Most languages omit branching because they build more powerful concepts atop it such as subroutines, if statements and loops</p>
+      </div>
+      <div id="ref-b" class="page hidden">
+        <p>Unconditional branch or 'jump'</p>
+        <p><strong>Syntax</strong></p>
+        <p>B <em>label</em></p>
+        <p><strong>Example</strong></p>
+        <code>B marker</code>
+        <p>Moves execution to the line labled 'marker'</p>
+        <p><strong>Pseudocode</strong></p>
+        <p>The closest construct is a subroutine call</p>
+        <code>marker()</code>
+        <p>But that would imply execution returns it's original position, this is not the case.</p>
+        <p><strong>Name</strong></p>
+        <p><em>B</em>ranch</p>
+      </div>
+      <div id="ref-beq" class="page hidden">
+        <p>Branch if the last CMP was equal</p>
+        <p><strong>Syntax</strong></p>
+        <p>BEQ <em>label</em></p>
+        <p><strong>Example</strong></p>
+        <code>BEQ marker</code>
+        <p>Conditionaly moves execution to the line labled 'marker'</p>
+        <p><strong>Pseudocode</strong></p>
+        <pre><code>IF flag = "equal" THEN
+  marker()
+END IF</code></pre>
+        <p>Unfortunatly this doesn't exactly represent BEQ</p>
+        <p><strong>Name</strong></p>
+        <p><em>B</em>ranch <em>E</em><em>Q</em>ual</p>
+      </div>
+      <div id="ref-bne" class="page hidden">
+        <p>Branch if the last CMP was not equal</p>
+        <p><strong>Syntax</strong></p>
+        <p>BNE <em>label</em></p>
+        <p><strong>Example</strong></p>
+        <code>BNE marker</code>
+        <p>Conditionaly moves execution to the line labled 'marker'</p>
+        <p><strong>Pseudocode</strong></p>
+        <pre><code>IF NOT flag = "equal" THEN
+  marker()
+END IF</code></pre>
+        <p>Unfortunatly this doesn't exactly represent BNE</p>
+        <p><strong>Name</strong></p>
+        <p><em>B</em>ranch <em>N</em>ot <em>E</em>qual</p>
       </div>
     </div>
   </section>
