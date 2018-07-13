@@ -30,8 +30,9 @@
             color: black;
             user-select: none;
             -moz-user-select: none;
-            &:hover {
-                text-shadow: gray 0px 0px 3px;
+            transition: background 0.5s ease-in-out;
+            &:hover, &:focus {
+                background: darken(#f7f7f7, 5%);
             }
         }
     }
@@ -132,12 +133,18 @@ body {
                 }
                 li {
                     padding: 0.3rem 0.5rem;
+                    transition: background 0.5s ease-in-out;
+                    &:hover, &:focus {
+                        background: darken(#f7f7f7, 5%);
+                    }
                 }
             }
         }
         .page {
             padding: .5rem;
             font-size: 0.9rem;
+            max-height: 25rem;
+            overflow: auto;
             p {
                 margin: .25rem 0;
             }

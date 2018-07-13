@@ -80,7 +80,7 @@ window.addEventListener('load', () => {
 	for (let elm of overview.querySelectorAll('li')) {
 		elm.addEventListener('click', e => {
 			let title = e.target.innerText;
-			let ref = document.getElementById("ref-" + title.toLowerCase());
+			let ref = document.getElementById("ref-" + title.replace(' ', '-').toLowerCase());
 			if (ref) {
 				pagetitle.innerText = title;
 				ref.classList.remove('hidden');

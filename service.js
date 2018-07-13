@@ -1,4 +1,4 @@
-const version = "test";
+const version = "test2";
 const cacheName = `aqabler-${version}`;
 
 self.addEventListener('install', e => {

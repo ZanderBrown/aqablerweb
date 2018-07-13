@@ -26,9 +26,11 @@
   color: black;
   user-select: none;
   -moz-user-select: none;
+  transition: background 0.5s ease-in-out;
 }
-.card .page-title .back:hover {
-  text-shadow: gray 0px 0px 3px;
+.card .page-title .back:hover,
+.card .page-title .back:focus {
+  background: #eaeaea;
 }
 .card:focus {
   box-shadow: 0 0 3px 1px #918585;
@@ -131,10 +133,17 @@ body section.reference div ul.expanded {
 }
 body section.reference div ul li {
   padding: 0.3rem 0.5rem;
+  transition: background 0.5s ease-in-out;
+}
+body section.reference div ul li:hover,
+body section.reference div ul li:focus {
+  background: #eaeaea;
 }
 body section.reference .page {
   padding: .5rem;
   font-size: 0.9rem;
+  max-height: 25rem;
+  overflow: auto;
 }
 body section.reference .page p {
   margin: .25rem 0;
