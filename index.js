@@ -53,9 +53,44 @@ window.addEventListener('load', () => {
 		});
 	});
 
-	for (let elm of document.querySelectorAll('.reference .heading')) {
+	let overview = document.querySelector('.reference .overview');
+
+	for (let elm of overview.querySelectorAll('.heading')) {
 		elm.addEventListener('click', e => {
 			e.target.nextElementSibling.classList.toggle("expanded");
+		});
+	}
+
+	let currentref = undefined;
+	let reftitle = document.querySelector('.reference .title');
+	let pagetitlewrap = document.querySelector('.reference .page-title');
+	let pagetitle = pagetitlewrap.querySelector('.reference .page-title .title');
+	let backbtn = document.querySelector('.reference .page-title .back');
+
+	backbtn.addEventListener('click', () => {
+		if (currentref) {
+			currentref.classList.add('hidden');
+			currentref = undefined;
+		}
+		overview.classList.remove('hidden');
+		reftitle.classList.remove('hidden');
+		pagetitlewrap.classList.add('hidden');
+	});
+
+	for (let elm of overview.querySelectorAll('li')) {
+		elm.addEventListener('click', e => {
+			let title = e.target.innerText;
+			let ref = document.getElementById("ref-" + title.toLowerCase());
+			if (ref) {
+				pagetitle.innerText = title;
+				ref.classList.remove('hidden');
+				overview.classList.add('hidden');
+				reftitle.classList.add('hidden');
+				pagetitlewrap.classList.remove('hidden');
+				currentref = ref;
+			} else {
+				console.error('Missing refrence page for ' + title);
+			}
 		});
 	}
 });
@@ -68,4 +103,6 @@ if ('serviceWorker' in navigator) {
 	navigator.serviceWorker.ready.then(function (registration) {
 		console.log('Service Worker Ready');
 	});
+} else {
+	console.log("No service worker");
 }
