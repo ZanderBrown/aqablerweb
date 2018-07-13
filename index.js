@@ -54,10 +54,16 @@ window.addEventListener('load', () => {
 	});
 
 	let overview = document.querySelector('.reference .overview');
+	let currentsec = undefined;
 
 	for (let elm of overview.querySelectorAll('.heading')) {
 		elm.addEventListener('click', e => {
-			e.target.nextElementSibling.classList.toggle("expanded");
+			let next = e.target.nextElementSibling;
+			if (currentsec && currentsec != next) {
+				currentsec.classList.remove('expanded');
+			}
+			currentsec = next;
+			currentsec.classList.toggle('expanded');
 		});
 	}
 
