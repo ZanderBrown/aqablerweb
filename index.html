@@ -64,6 +64,7 @@
         </ul>
         <p class="heading">Bitwise</p>
         <ul>
+          <li>Bitwise Overview</li>
           <li>AND</li>
           <li>ORR</li>
           <li>EOR</li>
@@ -262,6 +263,49 @@ END IF</code></pre>
         <p>Unfortunatly this doesn't exactly represent BLT</p>
         <p><strong>Name</strong></p>
         <p><em>B</em>ranch <em>L</em>ess <em>T</em>han</p>
+      </div>
+      <div id="ref-bitwise-overview" class="page hidden">
+        <p>Bitwise operations consider the binary representation of integers</p>
+        <p>It's important not to confuse these with their boolean equivalents as they can behave quite differently</p>
+        <p>Even in languages with a boolean type they are really integers where 0 is false and <strong>any</strong> other value is true, thus 'a AND b' checks that neither a or b equal 0</p>
+        <p>However bitwise operators work on the bits that make up the integer rather than it's value, for example a boolean AND between 1 &amp; 8 would be true as neither are zero but a bitwise AND between them is 0</p>
+      </div>
+      <div id="ref-and" class="page hidden">
+        <p>Bitwise logical AND between two values</p>
+        <p>That is to say it performs a boolean AND between each bit, so the AND of 2 (0010) &amp; 6 (0110) is 2 (0010)</p>
+        <p><strong>Syntax</strong></p>
+        <p>AND R<em>dest</em>, R<em>source</em>, R<em>other</em></p>
+        <p>AND R<em>dest</em>, R<em>source</em>, #<em>number</em></p>
+        <p><strong>Example</strong></p>
+        <code>AND R0, R1, R2</code>
+        <p>Performs a logical AND between register 1 and register 2 placing the result in register 0</p>
+        <p><strong>Pseudocode</strong></p>
+        <p>The AND operator is not bitwise because it produces a boolean not integer result</p>
+        <p>When given a register</p>
+        <code>regs[dest] ← regs[source] AND regs[other]</code>
+        <p>When given a number</p>
+        <code>regs[dest] ← regs[source] AND number</code>
+        <p><strong>Name</strong></p>
+        <p><em>A</em><em>N</em><em>D</em></p>
+      </div>
+      <div id="ref-orr" class="page hidden">
+        <p>Bitwise logical OR between two values</p>
+        <p>That is to say it performs a boolean OR between each bit, so the OR of 2 (0010) &amp; 6 (0110) is 6 (0110)</p>
+        <p><strong>Syntax</strong></p>
+        <p>ORR R<em>dest</em>, R<em>source</em>, R<em>other</em></p>
+        <p>ORR R<em>dest</em>, R<em>source</em>, #<em>number</em></p>
+        <p><strong>Example</strong></p>
+        <code>ORR R0, R1, R2</code>
+        <p>Performs a logical OR between register 1 and register 2 placing the result in register 0</p>
+        <p><strong>Pseudocode</strong></p>
+        <p>The OR operator is not bitwise because it produces a boolean not integer result</p>
+        <p>When given a register</p>
+        <code>regs[dest] ← regs[source] OR regs[other]</code>
+        <p>When given a number</p>
+        <code>regs[dest] ← regs[source] OR number</code>
+        <p><strong>Name</strong></p>
+        <p><em>O</em><em>R</em>(<em>R</em>)</p>
+        <p>Additional R is used to maintain consistant three letter commands</p>
       </div>
     </div>
   </section>
