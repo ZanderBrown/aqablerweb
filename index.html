@@ -268,11 +268,11 @@ END IF</code></pre>
         <p>Bitwise operations consider the binary representation of integers</p>
         <p>It's important not to confuse these with their boolean equivalents as they can behave quite differently</p>
         <p>Even in languages with a boolean type they are really integers where 0 is false and <strong>any</strong> other value is true, thus 'a AND b' checks that neither a or b equal 0</p>
-        <p>However bitwise operators work on the bits that make up the integer rather than it's value, for example a boolean AND between 1 &amp; 8 would be true as neither are zero but a bitwise AND between them is 0</p>
+        <p>However bitwise operators work on the bits that make up the integer rather than it's value, for example a logical AND between 1 &amp; 8 would be true as neither are zero but a bitwise AND between them is 0</p>
       </div>
       <div id="ref-and" class="page hidden">
-        <p>Bitwise logical AND between two values</p>
-        <p>That is to say it performs a boolean AND between each bit, so the AND of 2 (0010) &amp; 6 (0110) is 2 (0010)</p>
+        <p>Bitwise AND between two values</p>
+        <p>That is to say it performs a logical AND between each bit, so the AND of 2 (0010) &amp; 6 (0110) is 2 (0010)</p>
         <p><strong>Syntax</strong></p>
         <p>AND R<em>dest</em>, R<em>source</em>, R<em>other</em></p>
         <p>AND R<em>dest</em>, R<em>source</em>, #<em>number</em></p>
@@ -289,8 +289,8 @@ END IF</code></pre>
         <p><em>A</em><em>N</em><em>D</em></p>
       </div>
       <div id="ref-orr" class="page hidden">
-        <p>Bitwise logical OR between two values</p>
-        <p>That is to say it performs a boolean OR between each bit, so the OR of 2 (0010) &amp; 6 (0110) is 6 (0110)</p>
+        <p>Bitwise OR between two values</p>
+        <p>That is to say it performs a logical OR between each bit, so the OR of 2 (0010) &amp; 6 (0110) is 6 (0110)</p>
         <p><strong>Syntax</strong></p>
         <p>ORR R<em>dest</em>, R<em>source</em>, R<em>other</em></p>
         <p>ORR R<em>dest</em>, R<em>source</em>, #<em>number</em></p>
@@ -306,6 +306,44 @@ END IF</code></pre>
         <p><strong>Name</strong></p>
         <p><em>O</em><em>R</em>(<em>R</em>)</p>
         <p>Additional R is used to maintain consistant three letter commands</p>
+      </div>
+      <div id="ref-eor" class="page hidden">
+        <p>Bitwise exclusive OR between two values</p>
+        <p>That is to say it performs a logical exclusive OR between each bit, so the EOR of 2 (0010) &amp; 6 (0110) is 4 (0100)</p>
+        <p>As exclusive OR only allows one input to be true in the style of (a or b) and not (a and b)</p>
+        <p><strong>Syntax</strong></p>
+        <p>EOR R<em>dest</em>, R<em>source</em>, R<em>other</em></p>
+        <p>EOR R<em>dest</em>, R<em>source</em>, #<em>number</em></p>
+        <p><strong>Example</strong></p>
+        <code>EOR R0, R1, R2</code>
+        <p>Performs a logical exclusive OR (XOR) between register 1 and register 2 placing the result in register 0</p>
+        <p><strong>Pseudocode</strong></p>
+        <p>Neither OR or AND operators are bitwise because they are logical so produce a boolean result rather than integer</p>
+        <p>When given a register</p>
+        <code>regs[dest] ← (regs[source] OR regs[other]) AND NOT (regs[source] AND regs[other])</code>
+        <p>When given a number</p>
+        <code>regs[dest] ← (regs[source] OR number) AND NOT (regs[source] AND number)</code>
+        <p><strong>Name</strong></p>
+        <p><em>E</em>xclusive <em>O</em><em>R</em></p>
+      </div>
+      <div id="ref-mvn" class="page hidden">
+        <p>Move a register value or a number into a register having inverted it</p>
+        <p><strong>Syntax</strong></p>
+        <p>MVN R<em>dest</em>, R<em>source</em></p>
+        <p>MVN R<em>dest</em>, #<em>number</em></p>
+        <p><strong>Example</strong></p>
+        <code>MVN R0, #10</code>
+        <p>Put the value 10 (1010) in register 0 having inverted it to 5 (0101)</p>
+        <code>MVN R0, R1</code>
+        <p>Put the value of register 1 in register 0 having inverted it</p>
+        <p><strong>Pseudocode</strong></p>
+        <p>When given a register</p>
+        <code>regs[dest] ← NOT regs[source]</code>
+        <p>When given a number</p>
+        <code>regs[dest] ← NOT number</code>
+        <p>NOT is generally logical not bitwise so this sample will not show the same result as MVN</p>
+        <p><strong>Name</strong></p>
+        <p><em>M</em>o<em>V</em>e <em>N</em>OT</p>
       </div>
     </div>
   </section>
