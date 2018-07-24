@@ -265,10 +265,13 @@ END IF</code></pre>
         <p><em>B</em>ranch <em>L</em>ess <em>T</em>han</p>
       </div>
       <div id="ref-bitwise-overview" class="page hidden">
+        <!-- TODO: Improve -->
         <p>Bitwise operations consider the binary representation of integers</p>
         <p>It's important not to confuse these with their boolean equivalents as they can behave quite differently</p>
         <p>Even in languages with a boolean type they are really integers where 0 is false and <strong>any</strong> other value is true, thus 'a AND b' checks that neither a or b equal 0</p>
         <p>However bitwise operators work on the bits that make up the integer rather than it's value, for example a logical AND between 1 &amp; 8 would be true as neither are zero but a bitwise AND between them is 0</p>
+        <p>Shifts move bits around, so shifting 0010 (2) to the left by two is 1000 (8) whereas shifting to right would be 0000 (0)</p>
+        <p>It's important to remember that even though bitwise and shift operations work with integers they do not work on them as numbers</p>
       </div>
       <div id="ref-and" class="page hidden">
         <p>Bitwise AND between two values</p>
@@ -344,6 +347,28 @@ END IF</code></pre>
         <p>NOT is generally logical not bitwise so this sample will not show the same result as MVN</p>
         <p><strong>Name</strong></p>
         <p><em>M</em>o<em>V</em>e <em>N</em>OT</p>
+      </div>
+      <div id="ref-lsl" class="page hidden">
+        <!-- TODO: Improve -->
+        <p>Perform a left shift</p>
+        <p>Moves the binary representation a specified number of bits to the left, padding with 0s on the right</p>
+        <p>Any bits overflowing the far left are discarded, Aqabler online has 32 bit integers</p>
+        <p><strong>Syntax</strong></p>
+        <p>LSL R<em>dest</em>, R<em>source</em>, R<em>by</em></p>
+        <p>LSL R<em>dest</em>, R<em>source</em>, #<em>by</em></p>
+        <p><strong>Example</strong></p>
+        <code>LSL R1, R0, #1</code>
+        <p>Shift register 0 by 1 place to the left placing the result in register 1</p>
+        <code>LSL R2, R1, R0</code>
+        <p>Shift register 1 to the left by register 0s value placing the result in register 2</p>
+        <p><strong>Pseudocode</strong></p>
+        <p>Shifts are not generally used pseudocode but assuming it was it's use would be similar to any other operator</p>
+        <p>When given a register</p>
+        <code>regs[dest] ← regs[source] LSL regs[by]</code>
+        <p>When given a number</p>
+        <code>regs[dest] ← regs[source] LSL by</code>
+        <p><strong>Name</strong></p>
+        <p><em>L</em>ogical <em>S</em>hift <em>L</em>eft</p>
       </div>
     </div>
   </section>
