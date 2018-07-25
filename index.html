@@ -352,7 +352,7 @@ END IF</code></pre>
         <!-- TODO: Improve -->
         <p>Perform a left shift</p>
         <p>Moves the binary representation a specified number of bits to the left, padding with 0s on the right</p>
-        <p>Any bits overflowing the far left are discarded, Aqabler online has 32 bit integers</p>
+        <p>Any bits overflowing the far left are discarded</p>
         <p><strong>Syntax</strong></p>
         <p>LSL R<em>dest</em>, R<em>source</em>, R<em>by</em></p>
         <p>LSL R<em>dest</em>, R<em>source</em>, #<em>by</em></p>
@@ -370,7 +370,29 @@ END IF</code></pre>
         <p><strong>Name</strong></p>
         <p><em>L</em>ogical <em>S</em>hift <em>L</em>eft</p>
       </div>
-    </div>
+      <div id="ref-lsr" class="page hidden">
+          <!-- TODO: Improve -->
+          <p>Perform a right shift</p>
+          <p>Moves the binary representation a specified number of bits to the right, padding with 0s on the left</p>
+          <p>Any bits overflowing the far right are discarded</p>
+          <p><strong>Syntax</strong></p>
+          <p>LSR R<em>dest</em>, R<em>source</em>, R<em>by</em></p>
+          <p>LSR R<em>dest</em>, R<em>source</em>, #<em>by</em></p>
+          <p><strong>Example</strong></p>
+          <code>LSR R1, R0, #1</code>
+          <p>Shift register 0 by 1 place to the right placing the result in register 1</p>
+          <code>LSR R2, R1, R0</code>
+          <p>Shift register 1 to the right by register 0s value placing the result in register 2</p>
+          <p><strong>Pseudocode</strong></p>
+          <p>Shifts are not generally used pseudocode but assuming it was it's use would be similar to any other operator</p>
+          <p>When given a register</p>
+          <code>regs[dest] ← regs[source] LSR regs[by]</code>
+          <p>When given a number</p>
+          <code>regs[dest] ← regs[source] LSR by</code>
+          <p><strong>Name</strong></p>
+          <p><em>L</em>ogical <em>S</em>hift <em>R</em>ight</p>
+        </div>
+      </div>
   </section>
   <footer>
     &copy; Zander Brown
