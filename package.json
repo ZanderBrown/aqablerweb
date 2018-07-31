@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "serve": "http-server docs"
+    "serve": "http-server"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
