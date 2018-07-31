@@ -5,6 +5,7 @@ const favicon = require('gulp-real-favicon');
 const fs = require('fs');
 const mincss = require('gulp-clean-css');
 const minhtml = require('gulp-htmlmin');
+const minsvg = require('gulp-svgmin');
 
 const dest = './docs/';
 
@@ -25,37 +26,39 @@ gulp.task('js-index', () => {
 		.pipe(gulp.dest(dest));
 });
 
-gulp.task('js-service', () => {
-	return gulp.src(['./service.js'])
-		.pipe(webpack({
-			entry: "./service.js",
-			output: {
-				filename: "service.js"
-			},
-			mode: "production"
-		}, require("webpack")))
-		.pipe(gulp.dest(dest));
+gulp.task('js-service', cb => {
+	const path = require('path');
+	const cache = require('sw-precache');
+	const uglify = require('gulp-uglify');
+	cache.write(path.join('tmp', 'service.js'), {
+		cacheId: "aqablerweb",
+		staticFileGlobs: ['docs/index.html', 'docs/*.js', 'docs/*.css', 'docs/*.wasm', 'docs/logo.svg'],
+		stripPrefix: 'docs'
+	}, () => {
+		gulp.src('tmp/*.js').pipe(uglify()).pipe(gulp.dest(dest));
+		cb();
+	});
 });
 
-gulp.task('assets', ['css', 'html'], () => {
+gulp.task('assets', ['less', 'html', 'logo'], () => {
 	return gulp.src([
-		'logo.svg',
 		'./icons/*',
 		'robots.txt'
 	])
 		.pipe(gulp.dest(dest));
 });
 
-gulp.task('css', ['less'], function () {
-	return gulp.src('./*.css')
+gulp.task('less', function () {
+	return gulp.src('./*.less')
+		.pipe(less())
 		.pipe(mincss())
 		.pipe(gulp.dest(dest));
 });
 
-gulp.task('less', function () {
-	return gulp.src('./*.less')
-		.pipe(less())
-		.pipe(gulp.dest('.'));
+gulp.task('logo', function () {
+	return gulp.src('./logo.svg')
+		.pipe(minsvg())
+		.pipe(gulp.dest(dest));
 });
 
 var FAVICON_DATA_FILE = 'faviconData.json';
@@ -63,7 +66,7 @@ gulp.task('favicons', function (done) {
 	favicon.generateFavicon({
 		masterPicture: './favicon.png',
 		dest: './icons',
-		iconsPath: '/aqablerweb/',
+		iconsPath: './',
 		design: {
 			ios: {
 				pictureAspect: 'backgroundAndMargin',

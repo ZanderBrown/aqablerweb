@@ -110,5 +110,5 @@ if ('serviceWorker' in navigator) {
 		console.log('Service Worker Ready');
 	});
 } else {
-	console.log("No service worker");
+	console.log("Service Worker Unsupported");
 }

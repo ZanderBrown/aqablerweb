@@ -6,72 +6,84 @@
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:xlink="http://www.w3.org/1999/xlink"
-   id="svg8"
+   width="512"
+   height="512"
+   viewBox="0 0 135.46667 135.46666"
    version="1.1"
-   viewBox="0 0 71.4375 48.003471"
-   height="181.43045"
-   width="270">
+   id="svg8">
+  <metadata
+     id="metadata887">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
   <defs
      id="defs2">
     <linearGradient
        id="linearGradient852">
       <stop
-         id="stop848"
+         style="stop-color:#e4301a;stop-opacity:1"
          offset="0"
-         style="stop-color:#e4301a;stop-opacity:1" />
+         id="stop848" />
       <stop
-         id="stop850"
+         style="stop-color:#614aff;stop-opacity:0;"
          offset="1"
-         style="stop-color:#614aff;stop-opacity:0;" />
+         id="stop850" />
     </linearGradient>
     <filter
-       id="filter846"
-       style="color-interpolation-filters:sRGB">
+       style="color-interpolation-filters:sRGB"
+       id="filter846">
       <feFlood
-         id="feFlood836"
-         result="flood"
+         flood-opacity="0.643137"
          flood-color="rgb(0,0,0)"
-         flood-opacity="0.643137" />
+         result="flood"
+         id="feFlood836" />
       <feComposite
-         id="feComposite838"
-         result="composite1"
-         operator="in"
+         in="flood"
          in2="SourceGraphic"
-         in="flood" />
+         operator="in"
+         result="composite1"
+         id="feComposite838" />
       <feGaussianBlur
-         id="feGaussianBlur840"
-         result="blur"
+         in="composite1"
          stdDeviation="2"
-         in="composite1" />
+         result="blur"
+         id="feGaussianBlur840" />
       <feOffset
-         id="feOffset842"
-         result="offset"
+         dx="2"
          dy="2"
-         dx="2" />
+         result="offset"
+         id="feOffset842" />
       <feComposite
-         id="feComposite844"
-         result="composite2"
-         operator="over"
+         in="SourceGraphic"
          in2="offset"
-         in="SourceGraphic" />
+         operator="over"
+         result="composite2"
+         id="feComposite844" />
     </filter>
     <linearGradient
-       gradientTransform="translate(22.5,-956.20823)"
-       gradientUnits="userSpaceOnUse"
-       y2="932.51965"
-       x2="280"
-       y1="1072.5197"
-       x1="110"
+       xlink:href="#linearGradient852"
        id="linearGradient854"
-       xlink:href="#linearGradient852" />
+       x1="110"
+       y1="1072.5197"
+       x2="280"
+       y2="932.51965"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(22.5,-956.20823)" />
   </defs>
   <g
-     transform="translate(5.9531249,-252.99676)"
-     id="layer1">
+     id="layer1"
+     transform="matrix(1.8962961,0,0,1.8962961,11.288895,-457.53747)">
     <path
-       id="rect815"
+       style="opacity:1;fill:url(#linearGradient854);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2.64566922;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal;filter:url(#filter846)"
+       d="m 234.10156,15.121094 c -1.91403,-0.009 -4.10156,0.0078 -6.60156,0.0078 H 79.193359 C 44.19336,15.128716 22.5,36.822306 22.5,71.822266 v 75.589844 c 0,18.8976 7.99e-4,18.89844 18.898438,18.89844 H 192.5 c 30,0 55,-25 55,-55 V 34.027344 c 0,-17.50001 -1.8e-4,-18.84382 -13.39844,-18.90625 z M 47.5,116.31055 h 5 v 10 h 10 v -10 h 5 v 10 h 10 v 5 h -10 v 10 h 10 v 5 h -10 v 10 h -5 v -10 h -10 v 10 h -5 v -10 h -10 v -5 h 10 v -10 h -10 v -5 h 10 z m 5,15 v 10 h 10 v -10 z"
        transform="matrix(0.26458333,0,0,0.26458333,-5.9531249,252.99676)"
-       d="M 234.10156 15.121094 C 232.18753 15.112094 230 15.128906 227.5 15.128906 L 79.193359 15.128906 C 44.19336 15.128716 22.5 36.822306 22.5 71.822266 L 22.5 147.41211 C 22.5 166.30971 22.500799 166.31055 41.398438 166.31055 L 192.5 166.31055 C 222.5 166.31055 247.5 141.31055 247.5 111.31055 L 247.5 34.027344 C 247.5 16.527334 247.49982 15.183524 234.10156 15.121094 z M 47.5 116.31055 L 52.5 116.31055 L 52.5 126.31055 L 62.5 126.31055 L 62.5 116.31055 L 67.5 116.31055 L 67.5 126.31055 L 77.5 126.31055 L 77.5 131.31055 L 67.5 131.31055 L 67.5 141.31055 L 77.5 141.31055 L 77.5 146.31055 L 67.5 146.31055 L 67.5 156.31055 L 62.5 156.31055 L 62.5 146.31055 L 52.5 146.31055 L 52.5 156.31055 L 47.5 156.31055 L 47.5 146.31055 L 37.5 146.31055 L 37.5 141.31055 L 47.5 141.31055 L 47.5 131.31055 L 37.5 131.31055 L 37.5 126.31055 L 47.5 126.31055 L 47.5 116.31055 z M 52.5 131.31055 L 52.5 141.31055 L 62.5 141.31055 L 62.5 131.31055 L 52.5 131.31055 z "
-       style="opacity:1;fill:url(#linearGradient854);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2.64566922;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal;filter:url(#filter846)" />
+       id="rect815" />
   </g>
 </svg>

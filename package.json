@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "serve": "webpack-dev-server"
+    "serve": "http-server docs"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
@@ -8,9 +8,11 @@
     "gulp-htmlmin": "^4.0.0",
     "gulp-less": "^3.5.0",
     "gulp-real-favicon": "^0.3.0",
+    "gulp-svgmin": "^1.2.4",
+    "gulp-uglify": "^3.0.1",
+    "sw-precache": "^5.2.1",
     "webpack": "^4.11.1",
     "webpack-cli": "^2.0.10",
-    "webpack-dev-server": "^3.1.0",
     "webpack-stream": "^4.0.3"
   },
   "repository": {
