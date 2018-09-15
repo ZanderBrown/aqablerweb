@@ -1,5 +1,3 @@
-#![feature(proc_macro, wasm_import_module, wasm_custom_section)]
-
 extern crate aqabler;
 extern crate wasm_bindgen;
 
