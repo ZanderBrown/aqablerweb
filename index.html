@@ -18,9 +18,11 @@
   <header>
     <img src="logo.svg" alt="Logo">
     <span>Aqabler</span>
-    <button id="run">Run</button>
   </header>
-  <textarea class="card" id="source" spellcheck="false" aria-label="Source Code">MOV R0, #42</textarea>
+  <div class="card program">
+    <div class="title">Program<button id="run">Run</button></div>
+    <textarea id="source" spellcheck="false" aria-label="Source Code">MOV R0, #42</textarea>
+  </div>
   <section class="main">
     <div class="card" id="result">Please Wait...</div>
     <div class="hack01"></div>
@@ -40,44 +42,44 @@
     <div class="card">
       <div class="title">Reference</div>
       <div class="page-title hidden">
-        <a class="back">←</a>
+        <div class="back" tabindex="0">←</div>
         <div class="title">Reference</div>
       </div>
       <div class="overview">
-        <p class="heading">Memory</p>
+        <p class="heading" tabindex="0">Memory</p>
         <ul>
-          <li>LDR</li>
-          <li>STR</li>
-          <li>MOV</li>
+          <li tabindex="0">LDR</li>
+          <li tabindex="0">STR</li>
+          <li tabindex="0">MOV</li>
         </ul>
-        <p class="heading">Arithmetic</p>
+        <p class="heading" tabindex="0">Arithmetic</p>
         <ul>
-          <li>ADD</li>
-          <li>SUB</li>
+          <li tabindex="0">ADD</li>
+          <li tabindex="0">SUB</li>
         </ul>
-        <p class="heading">Branching</p>
+        <p class="heading" tabindex="0">Branching</p>
         <ul>
-          <li>Branching Overview</li>
-          <li>CMP</li>
-          <li>B</li>
-          <li>BEQ</li>
-          <li>BNE</li>
-          <li>BGT</li>
-          <li>BLT</li>
+          <li tabindex="0">Branching Overview</li>
+          <li tabindex="0">CMP</li>
+          <li tabindex="0">B</li>
+          <li tabindex="0">BEQ</li>
+          <li tabindex="0">BNE</li>
+          <li tabindex="0">BGT</li>
+          <li tabindex="0">BLT</li>
         </ul>
-        <p class="heading">Bitwise</p>
+        <p class="heading" tabindex="0">Bitwise</p>
         <ul>
-          <li>Bitwise Overview</li>
-          <li>AND</li>
-          <li>ORR</li>
-          <li>EOR</li>
-          <li>MVN</li>
-          <li>LSL</li>
-          <li>LSR</li>
+          <li tabindex="0">Bitwise Overview</li>
+          <li tabindex="0">AND</li>
+          <li tabindex="0">ORR</li>
+          <li tabindex="0">EOR</li>
+          <li tabindex="0">MVN</li>
+          <li tabindex="0">LSL</li>
+          <li tabindex="0">LSR</li>
         </ul>
-        <p class="heading">Other</p>
+        <p class="heading" tabindex="0">Other</p>
         <ul>
-          <li>HALT</li>
+          <li tabindex="0">HALT</li>
         </ul>
       </div>
       <div id="ref-ldr" class="page hidden">
@@ -412,8 +414,8 @@ END IF</code></pre>
     </div>
   </main>
   <footer>
-    &copy; Zander Brown
-    <a href="https://github.com/ZanderBrown/aqabler">View on GitHub</a>
+    <a href="https://zanderbrown.github.io">&copy; Zander Brown</a>
+    <a href="https://github.com/ZanderBrown/aqabler">GitHub Repo</a>
   </footer>
 </body>
 

@@ -64,15 +64,30 @@ window.addEventListener('load', () => {
     let overview = document.querySelector('.reference .overview');
     let currentsec = undefined;
 
-    for (let elm of overview.querySelectorAll('.heading')) {
+    let connect = (elm, cb) => {
         elm.addEventListener('click', e => {
-            let next = e.target.nextElementSibling;
-            if (currentsec && currentsec != next) {
-                currentsec.classList.remove('expanded');
-            }
-            currentsec = next;
-            currentsec.classList.toggle('expanded');
+            e.preventDefault();
+            cb(e.target);
         });
+        elm.addEventListener('keyup', e => {
+            if (e.key == ' ') {
+                e.preventDefault();
+                cb(e.target);
+            }
+        });
+    };
+
+    let expand = elm => {
+        let next = elm.nextElementSibling;
+        if (currentsec && currentsec != next) {
+            currentsec.classList.remove('expanded');
+        }
+        currentsec = next;
+        currentsec.classList.toggle('expanded');
+    };
+
+    for (let elm of overview.querySelectorAll('.heading')) {
+        connect(elm, expand);
     }
 
     let currentref = undefined;
@@ -81,7 +96,7 @@ window.addEventListener('load', () => {
     let pagetitle = pagetitlewrap.querySelector('.reference .page-title .title');
     let backbtn = document.querySelector('.reference .page-title .back');
 
-    backbtn.addEventListener('click', () => {
+    let back = _elm => {
         if (currentref) {
             currentref.classList.add('hidden');
             currentref = undefined;
@@ -89,23 +104,27 @@ window.addEventListener('load', () => {
         overview.classList.remove('hidden');
         reftitle.classList.remove('hidden');
         pagetitlewrap.classList.add('hidden');
-    });
+    };
+
+    connect(backbtn, back);
+
+    let show = elm => {
+        let title = elm.innerText;
+        let ref = document.getElementById("ref-" + title.replace(' ', '-').toLowerCase());
+        if (ref) {
+            pagetitle.innerText = title;
+            ref.classList.remove('hidden');
+            overview.classList.add('hidden');
+            reftitle.classList.add('hidden');
+            pagetitlewrap.classList.remove('hidden');
+            currentref = ref;
+        } else {
+            console.error('Missing refrence page for ' + title);
+        }
+    };
 
     for (let elm of overview.querySelectorAll('li')) {
-        elm.addEventListener('click', e => {
-            let title = e.target.innerText;
-            let ref = document.getElementById("ref-" + title.replace(' ', '-').toLowerCase());
-            if (ref) {
-                pagetitle.innerText = title;
-                ref.classList.remove('hidden');
-                overview.classList.add('hidden');
-                reftitle.classList.add('hidden');
-                pagetitlewrap.classList.remove('hidden');
-                currentref = ref;
-            } else {
-                console.error('Missing refrence page for ' + title);
-            }
-        });
+        connect(elm, show);
     }
 });
 
