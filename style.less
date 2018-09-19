@@ -3,11 +3,8 @@
 @card-background: #f7f7f7;
 @card-color: #2f2f2f;
 
-.hidden {
-    display: none;
-}
-
 .card {
+    position: relative;
     margin: 1rem;
     box-shadow: 0 0 3px 1px #bfb7b7;
     border-radius: 2px;
@@ -16,10 +13,16 @@
     transition-property: color, background, box-shadow;
     transition-duration: 0.2s;
     transition-timing-function: ease-in;
+    display: flex;
+    flex-direction: column;
     .title {
         padding: 0.5rem;
         border-bottom: 1px solid #e7e7e7;
         font-size: 1.2rem;
+    }
+    .footer {
+        padding: 0.5rem;
+        border-top: 1px solid #e7e7e7;
     }
     .page-title {
         .back {
@@ -57,6 +60,22 @@
     }
 }
 
+button, select {
+    float: right;
+    border: none;
+    background: #e7e7e7;
+    color: @card-color;
+    border-radius: 2px;
+    height: 100%;
+    min-width: 3.5rem;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    &:hover, &:focus {
+        box-shadow: 0 0 3px 1px #a3a3a3;
+    }
+}
+
 body {
     background: #e3e3e3;
     display: grid;
@@ -72,16 +91,8 @@ body {
         display: flex;
         flex-direction: column;
         button {
-            float: right;
             background: red;
-            border: none;
             color: white;
-            border-radius: 2px;
-            height: 100%;
-            min-width: 3.5rem;
-            &:hover, &:focus {
-                box-shadow: 0 0 3px 1px #a3a3a3;
-            }
         }
         textarea {
             border: none;
@@ -118,17 +129,25 @@ body {
         }
         .registers {
             padding: 0;
-            table {
-                border-collapse: collapse;
-                .regs {
-                    background: #e7e7e7;
-                }
-                td {
-                    padding: 2px;
-                    &:first-child {
-                        padding-left: 20px;
-                        padding-right: 5px;
-                        text-align: right;
+            #registers {
+                font-family: monospace;
+                font-size: 1rem;
+                overflow-x: auto;
+                div {
+                    width: 100%;
+                    display: inline-block;
+                    @media (min-width: 55rem) {
+                        width: 50%;
+                    }
+                    span {
+                        padding: 2px 5px;
+                        &:first-child {
+                            background: #e7e7e7;
+                            padding-left: 20px;
+                            text-align: right;
+                            min-width: 2rem;
+                            display: inline-block;
+                        }
                     }
                 }
             }
@@ -238,4 +257,8 @@ body {
             }
         }
     }
+}
+
+.hidden {
+    display: none;
 }

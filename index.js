@@ -2,8 +2,6 @@
 
 let source = document.getElementById("source");
 let result = document.getElementById("result");
-let registers = document.getElementById("registers");
-let registerswrap = document.querySelector('.registers');
 let run = document.getElementById("run");
 
 function show_message(msg) {
@@ -17,44 +15,59 @@ function show_message(msg) {
     }, 0);
 }
 
-window.regs_add_row = (regnum, value) => {
-    let row = document.createElement("tr");
-    let reg = document.createElement("td");
-    reg.innerText = "R" + regnum;
-    let val = document.createElement("td");
-    val.innerText = value;
-    row.appendChild(reg);
-    row.appendChild(val);
-    registers.appendChild(row);
-}
+function show_regs (registers, context, signed) {
+    while (registers.firstChild) registers.removeChild(registers.firstChild);
+    let count = context.getRegCount();
+    for (let i = 0; i < count; i++) {
+        let row = document.createElement("div");
 
-window.regs_reset = () => {
-    while (registers.firstChild) {
-        registers.removeChild(registers.firstChild);
+        let reg = document.createElement("span");
+        reg.innerText = "R" + i;
+        let val = document.createElement("span");
+        val.innerText = context.getReg(i, signed);
+        row.appendChild(reg);
+        row.appendChild(val);
+
+        registers.appendChild(row);
     }
 }
+
+let context = null;
 
 window.addEventListener('load', () => {
     if (!('WebAssembly' in window)) {
         show_message("Web browser isn't supported :-(");
         return;
     }
+
+    let registers = document.getElementById("registers");
+    let registerswrap = document.querySelector('.registers');
+    let registersmode = document.getElementById('reg-mode');
+
+    registersmode.addEventListener('change', e => {
+        if (context) {
+            show_regs(registers, context, registersmode.value == 'signed');
+        }
+    });
+
     const aqabler = import("./aqablerweb");
     aqabler.then(aqabler => {
         show_message("Ready");
         let first = true;
         run.addEventListener("click", () => {
+            if (first) {
+                first = false;
+                registerswrap.classList.remove('hidden');
+            }
+            let program = source.value;
             try {
-                if (first) {
-                    first = false;
-                    registerswrap.classList.remove('hidden');
-                }
-                let program = source.value;
-                show_message(aqabler.run(program));
+                context = new aqabler.Context();
+                show_message(context.run(program));
             } catch (e) {
                 show_message("Internal Error");
                 console.error(e);
             }
+            show_regs(registers, context, registersmode.value == 'signed');
         });
     }).catch(e => {
         show_message("Failed to load Aqabler");

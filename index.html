@@ -28,14 +28,13 @@
     <div class="hack01"></div>
     <div class="card registers hidden">
       <div class="title">Registers</div>
-      <table>
-        <colgroup>
-          <col class="regs">
-          <col>
-        </colgroup>
-        <tbody id="registers">
-        </tbody>
-      </table>
+      <div id="registers"></div>
+      <div class="footer">
+        <select id="reg-mode">
+          <option value="unsigned" selected>Unsigned</option>
+          <option value="signed">Signed</option>
+        </select>
+      </div>
     </div>
   </section>
   <main class="reference">
