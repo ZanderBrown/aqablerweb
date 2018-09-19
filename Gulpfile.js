@@ -26,7 +26,7 @@ gulp.task('other', () => {
 gulp.task('js', ['js-index', 'js-service']);
 
 gulp.task('js-index', () => {
-	return gulp.src(['./index.js', './*.wasm'])
+	return gulp.src(['./index.js','./aqabler.js', './*.wasm'])
 		.pipe(webpack({
 			entry: "./index.js",
 			output: {

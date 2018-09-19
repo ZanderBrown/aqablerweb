@@ -106,7 +106,7 @@ window.addEventListener('load', () => {
     let currentref = undefined;
     let reftitle = document.querySelector('.reference .title');
     let pagetitlewrap = document.querySelector('.reference .page-title');
-    let pagetitle = pagetitlewrap.querySelector('.reference .page-title .title');
+    let pagetitle = pagetitlewrap.querySelector('.reference .page-title .title h2');
     let backbtn = document.querySelector('.reference .page-title .back');
 
     let back = _elm => {

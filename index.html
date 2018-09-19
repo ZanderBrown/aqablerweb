@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -17,17 +18,17 @@
 <body>
   <header>
     <img src="logo.svg" alt="Logo">
-    <span>Aqabler</span>
+    <h1>Aqabler</h1>
   </header>
   <div class="card program">
-    <div class="title">Program<button id="run">Run</button></div>
+    <div class="title"><h2>Program</h2><button id="run">Run</button></div>
     <textarea id="source" spellcheck="false" aria-label="Source Code">MOV R0, #42</textarea>
   </div>
   <section class="main">
     <div class="card" id="result">Please Wait...</div>
     <div class="hack01"></div>
     <div class="card registers hidden">
-      <div class="title">Registers</div>
+      <div class="title"><h2>Registers</h2></div>
       <div id="registers"></div>
       <div class="footer">
         <select id="reg-mode">
@@ -36,13 +37,24 @@
         </select>
       </div>
     </div>
+    <div class="hack01"></div>
+    <div class="card">
+      <div class="title"><h2>Aqabler</h2></div>
+      <p>Aqabler is blah based on pdf blah</p>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta quidem laborum facilis in corporis minima, est eius, tenetur assumenda libero necessitatibus praesentium ad, sapiente ratione ipsa neque! Illo, consequuntur culpa.</p>
+      <h3>Assumptions</h3>
+      <p>32bit blah because blah</p>
+      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maxime, voluptatum reprehenderit sed vitae aut culpa nostrum esse dolor suscipit accusantium quod, fugit numquam ut sapiente a autem iure quasi soluta!</p>
+      <p>Rem maiores magni assumenda ea eaque perferendis sequi, a eum dolores. Accusantium veniam dolorum id nostrum possimus hic minima, a eum illum assumenda iure incidunt, ipsam laudantium, totam similique. Quo?</p>
+      <p>Placeat ex atque earum dolorum maiores nihil omnis quae recusandae, blanditiis ullam, laboriosam accusantium quod provident voluptate, nemo quos sint hic. Ducimus eum ipsam excepturi quidem nesciunt fuga enim qui?</p>
+    </div>
   </section>
   <main class="reference">
     <div class="card">
-      <div class="title">Reference</div>
+      <div class="title"><h2>Reference</h2></div>
       <div class="page-title hidden">
         <div class="back" tabindex="0">←</div>
-        <div class="title">Reference</div>
+        <div class="title"><h2>Reference</h2></div>
       </div>
       <div class="overview">
         <p class="heading" tabindex="0">Memory</p>
@@ -83,93 +95,93 @@
       </div>
       <div id="ref-ldr" class="page hidden">
         <p>Load into a register from main memory</p>
-        <p><strong>Syntax</strong></p>
+        <h3>Syntax</h3>
         <p>LDR R<em>dest</em>, <em>memory</em></p>
-        <p><strong>Example</strong></p>
+        <h3>Example</h3>
         <code>LDR R0, 100</code>
         <p>Loads the value at 100 into register 0</p>
-        <p><strong>Pseudocode</strong></p>
+        <h3>Pseudocode</h3>
         <code>regs[dest] ← main_mem[memory]</code>
-        <p><strong>Name</strong></p>
+        <h3>Name</h3>
         <p><em>L</em>oa<em>D</em> <em>R</em>egister</p>
       </div>
       <div id="ref-str" class="page hidden">
         <p>Store a registers value in main memory</p>
-        <p><strong>Syntax</strong></p>
+        <h3>Syntax</h3>
         <p>STR R<em>source</em>, <em>memory</em></p>
-        <p><strong>Example</strong></p>
+        <h3>Example</h3>
         <code>STR R0, 100</code>
         <p>Store the value of register 0 into memory position 100</p>
-        <p><strong>Pseudocode</strong></p>
+        <h3>Pseudocode</h3>
         <code>main_mem[memory] ← regs[source]</code>
-        <p><strong>Name</strong></p>
+        <h3>Name</h3>
         <p><em>S</em><em>T</em>o<em>R</em>e</p>
       </div>
       <div id="ref-mov" class="page hidden">
         <p>Move a register value or a number into a register</p>
-        <p><strong>Syntax</strong></p>
+        <h3>Syntax</h3>
         <p>MOV R<em>dest</em>, R<em>source</em></p>
         <p>MOV R<em>dest</em>, #<em>number</em></p>
-        <p><strong>Example</strong></p>
+        <h3>Example</h3>
         <code>MOV R0, #10</code>
         <p>Put the value 10 in register 0</p>
         <code>MOV R0, R1</code>
         <p>Put the value of register 1 in register 0</p>
-        <p><strong>Pseudocode</strong></p>
+        <h3>Pseudocode</h3>
         <p>When given a register</p>
         <code>regs[dest] ← regs[source]</code>
         <p>When given a number</p>
         <code>regs[dest] ← number</code>
-        <p><strong>Name</strong></p>
+        <h3>Name</h3>
         <p><em>M</em><em>O</em><em>V</em>e</p>
       </div>
       <div id="ref-add" class="page hidden">
         <p>Add a register or number to a register storing the result</p>
-        <p><strong>Syntax</strong></p>
+        <h3>Syntax</h3>
         <p>ADD R<em>dest</em>, R<em>source</em>, R<em>other</em></p>
         <p>ADD R<em>dest</em>, R<em>source</em>, #<em>number</em></p>
-        <p><strong>Example</strong></p>
+        <h3>Example</h3>
         <code>ADD R0, R1, R2</code>
         <p>Add the value of register 2 to that of register 1 storing the result in register 0</p>
         <code>ADD R0, R1, #100</code>
         <p>Add 100 to the value of register 1 storing the result in register 0</p>
-        <p><strong>Pseudocode</strong></p>
+        <h3>Pseudocode</h3>
         <p>When given a register</p>
         <code>regs[dest] ← regs[source] + regs[other]</code>
         <p>When given a number</p>
         <code>regs[dest] ← regs[source] + number</code>
-        <p><strong>Name</strong></p>
+        <h3>Name</h3>
         <p><em>A</em><em>D</em><em>D</em></p>
       </div>
       <div id="ref-sub" class="page hidden">
         <p>Subtract a register or number from a register storing the result</p>
-        <p><strong>Syntax</strong></p>
+        <h3>Syntax</h3>
         <p>SUB R<em>dest</em>, R<em>source</em>, R<em>other</em></p>
         <p>SUB R<em>dest</em>, R<em>source</em>, #<em>number</em></p>
-        <p><strong>Example</strong></p>
+        <h3>Example</h3>
         <code>SUB R0, R1, R2</code>
         <p>Subtract the value of register 2 from that of register 1 storing the result in register 0</p>
         <code>ADD R0, R1, #100</code>
         <p>Subtract 100 from the value of register 1 storing the result in register 0</p>
-        <p><strong>Pseudocode</strong></p>
+        <h3>Pseudocode</h3>
         <p>When given a register</p>
         <code>regs[dest] ← regs[source] - regs[other]</code>
         <p>When given a number</p>
         <code>regs[dest] ← regs[source] - number</code>
-        <p><strong>Name</strong></p>
+        <h3>Name</h3>
         <p><em>S</em><em>U</em><em>B</em>tract</p>
       </div>
       <div id="ref-cmp" class="page hidden">
         <p>Compare a register to another register or number, only useful when followed by a conditional branch</p>
-        <p><strong>Syntax</strong></p>
+        <h3>Syntax</h3>
         <p>CMP R<em>val</em>, R<em>other</em></p>
         <p>CMP R<em>val</em>, #<em>number</em></p>
-        <p><strong>Example</strong></p>
+        <h3>Example</h3>
         <code>CMP R0, R1</code>
         <p>Compare the values of register 0 &amp; register 1</p>
         <code>ADD R0, #100</code>
         <p>Compare register 0s value to 100</p>
-        <p><strong>Pseudocode</strong></p>
+        <h3>Pseudocode</h3>
         <p>When given a register</p>
         <pre><code>IF regs[val] = regs[other] THEN
   flag ← "equal"
@@ -186,7 +198,7 @@ ELSE IF regs[val] &lt; number THEN
 ELSE
   flag ← "greater"
 END IF</code></pre>
-        <p><strong>Name</strong></p>
+        <h3>Name</h3>
         <p><em>C</em>o<em>M</em><em>P</em>are</p>
       </div>
       <div id="ref-branching-overview" class="page hidden">
@@ -196,76 +208,76 @@ END IF</code></pre>
       </div>
       <div id="ref-b" class="page hidden">
         <p>Unconditional branch or 'jump'</p>
-        <p><strong>Syntax</strong></p>
+        <h3>Syntax</h3>
         <p>B <em>label</em></p>
-        <p><strong>Example</strong></p>
+        <h3>Example</h3>
         <code>B marker</code>
         <p>Moves execution to the line labled 'marker'</p>
-        <p><strong>Pseudocode</strong></p>
+        <h3>Pseudocode</h3>
         <p>The closest construct is a subroutine call</p>
         <code>marker()</code>
         <p>But that would imply execution returns it's original position, this is not the case.</p>
-        <p><strong>Name</strong></p>
+        <h3>Name</h3>
         <p><em>B</em>ranch</p>
       </div>
       <div id="ref-beq" class="page hidden">
         <p>Branch if the last CMP was equal</p>
-        <p><strong>Syntax</strong></p>
+        <h3>Syntax</h3>
         <p>BEQ <em>label</em></p>
-        <p><strong>Example</strong></p>
+        <h3>Example</h3>
         <code>BEQ marker</code>
         <p>Conditionaly moves execution to the line labled 'marker'</p>
-        <p><strong>Pseudocode</strong></p>
+        <h3>Pseudocode</h3>
         <pre><code>IF flag = "equal" THEN
   marker()
 END IF</code></pre>
         <p>Unfortunatly this doesn't exactly represent BEQ</p>
-        <p><strong>Name</strong></p>
+        <h3>Name</h3>
         <p><em>B</em>ranch <em>E</em><em>Q</em>ual</p>
       </div>
       <div id="ref-bne" class="page hidden">
         <p>Branch if the last CMP was not equal</p>
-        <p><strong>Syntax</strong></p>
+        <h3>Syntax</h3>
         <p>BNE <em>label</em></p>
-        <p><strong>Example</strong></p>
+        <h3>Example</h3>
         <code>BNE marker</code>
         <p>Conditionaly moves execution to the line labled 'marker'</p>
-        <p><strong>Pseudocode</strong></p>
+        <h3>Pseudocode</h3>
         <pre><code>IF NOT flag = "equal" THEN
   marker()
 END IF</code></pre>
         <p>Unfortunatly this doesn't exactly represent BNE</p>
-        <p><strong>Name</strong></p>
+        <h3>Name</h3>
         <p><em>B</em>ranch <em>N</em>ot <em>E</em>qual</p>
       </div>
       <div id="ref-bgt" class="page hidden">
         <p>Branch if the last CMP result was greater</p>
-        <p><strong>Syntax</strong></p>
+        <h3>Syntax</h3>
         <p>BGT <em>label</em></p>
-        <p><strong>Example</strong></p>
+        <h3>Example</h3>
         <code>BGT marker</code>
         <p>Conditionaly moves execution to the line labled 'marker'</p>
-        <p><strong>Pseudocode</strong></p>
+        <h3>Pseudocode</h3>
         <pre><code>IF flag = "greater" THEN
   marker()
 END IF</code></pre>
         <p>Unfortunatly this doesn't exactly represent BGT</p>
-        <p><strong>Name</strong></p>
+        <h3>Name</h3>
         <p><em>B</em>ranch <em>G</em>reater <em>T</em>han</p>
       </div>
       <div id="ref-blt" class="page hidden">
         <p>Branch if the last CMP result was less</p>
-        <p><strong>Syntax</strong></p>
+        <h3>Syntax</h3>
         <p>BLT <em>label</em></p>
-        <p><strong>Example</strong></p>
+        <h3>Example</h3>
         <code>BLT marker</code>
         <p>Conditionaly moves execution to the line labled 'marker'</p>
-        <p><strong>Pseudocode</strong></p>
+        <h3>Pseudocode</h3>
         <pre><code>IF flag = "less" THEN
   marker()
 END IF</code></pre>
         <p>Unfortunatly this doesn't exactly represent BLT</p>
-        <p><strong>Name</strong></p>
+        <h3>Name</h3>
         <p><em>B</em>ranch <em>L</em>ess <em>T</em>han</p>
       </div>
       <div id="ref-bitwise-overview" class="page hidden">
@@ -280,37 +292,37 @@ END IF</code></pre>
       <div id="ref-and" class="page hidden">
         <p>Bitwise AND between two values</p>
         <p>That is to say it performs a logical AND between each bit, so the AND of 2 (0010) &amp; 6 (0110) is 2 (0010)</p>
-        <p><strong>Syntax</strong></p>
+        <h3>Syntax</h3>
         <p>AND R<em>dest</em>, R<em>source</em>, R<em>other</em></p>
         <p>AND R<em>dest</em>, R<em>source</em>, #<em>number</em></p>
-        <p><strong>Example</strong></p>
+        <h3>Example</h3>
         <code>AND R0, R1, R2</code>
         <p>Performs a logical AND between register 1 and register 2 placing the result in register 0</p>
-        <p><strong>Pseudocode</strong></p>
+        <h3>Pseudocode</h3>
         <p>The AND operator is not bitwise because it produces a boolean not integer result</p>
         <p>When given a register</p>
         <code>regs[dest] ← regs[source] AND regs[other]</code>
         <p>When given a number</p>
         <code>regs[dest] ← regs[source] AND number</code>
-        <p><strong>Name</strong></p>
+        <h3>Name</h3>
         <p><em>A</em><em>N</em><em>D</em></p>
       </div>
       <div id="ref-orr" class="page hidden">
         <p>Bitwise OR between two values</p>
         <p>That is to say it performs a logical OR between each bit, so the OR of 2 (0010) &amp; 6 (0110) is 6 (0110)</p>
-        <p><strong>Syntax</strong></p>
+        <h3>Syntax</h3>
         <p>ORR R<em>dest</em>, R<em>source</em>, R<em>other</em></p>
         <p>ORR R<em>dest</em>, R<em>source</em>, #<em>number</em></p>
-        <p><strong>Example</strong></p>
+        <h3>Example</h3>
         <code>ORR R0, R1, R2</code>
         <p>Performs a logical OR between register 1 and register 2 placing the result in register 0</p>
-        <p><strong>Pseudocode</strong></p>
+        <h3>Pseudocode</h3>
         <p>The OR operator is not bitwise because it produces a boolean not integer result</p>
         <p>When given a register</p>
         <code>regs[dest] ← regs[source] OR regs[other]</code>
         <p>When given a number</p>
         <code>regs[dest] ← regs[source] OR number</code>
-        <p><strong>Name</strong></p>
+        <h3>Name</h3>
         <p><em>O</em><em>R</em>(<em>R</em>)</p>
         <p>Additional R is used to maintain consistant three letter commands</p>
       </div>
@@ -318,38 +330,38 @@ END IF</code></pre>
         <p>Bitwise exclusive OR between two values</p>
         <p>That is to say it performs a logical exclusive OR between each bit, so the EOR of 2 (0010) &amp; 6 (0110) is 4 (0100)</p>
         <p>As exclusive OR only allows one input to be true in the style of (a or b) and not (a and b)</p>
-        <p><strong>Syntax</strong></p>
+        <h3>Syntax</h3>
         <p>EOR R<em>dest</em>, R<em>source</em>, R<em>other</em></p>
         <p>EOR R<em>dest</em>, R<em>source</em>, #<em>number</em></p>
-        <p><strong>Example</strong></p>
+        <h3>Example</h3>
         <code>EOR R0, R1, R2</code>
         <p>Performs a logical exclusive OR (XOR) between register 1 and register 2 placing the result in register 0</p>
-        <p><strong>Pseudocode</strong></p>
+        <h3>Pseudocode</h3>
         <p>Neither OR or AND operators are bitwise because they are logical so produce a boolean result rather than integer</p>
         <p>When given a register</p>
         <code>regs[dest] ← (regs[source] OR regs[other]) AND NOT (regs[source] AND regs[other])</code>
         <p>When given a number</p>
         <code>regs[dest] ← (regs[source] OR number) AND NOT (regs[source] AND number)</code>
-        <p><strong>Name</strong></p>
+        <h3>Name</h3>
         <p><em>E</em>xclusive <em>O</em><em>R</em></p>
       </div>
       <div id="ref-mvn" class="page hidden">
         <p>Move a register value or a number into a register having inverted it</p>
-        <p><strong>Syntax</strong></p>
+        <h3>Syntax</h3>
         <p>MVN R<em>dest</em>, R<em>source</em></p>
         <p>MVN R<em>dest</em>, #<em>number</em></p>
-        <p><strong>Example</strong></p>
+        <h3>Example</h3>
         <code>MVN R0, #10</code>
         <p>Put the value 10 (1010) in register 0 having inverted it to 5 (0101)</p>
         <code>MVN R0, R1</code>
         <p>Put the value of register 1 in register 0 having inverted it</p>
-        <p><strong>Pseudocode</strong></p>
+        <h3>Pseudocode</h3>
         <p>When given a register</p>
         <code>regs[dest] ← NOT regs[source]</code>
         <p>When given a number</p>
         <code>regs[dest] ← NOT number</code>
         <p>NOT is generally logical not bitwise so this sample will not show the same result as MVN</p>
-        <p><strong>Name</strong></p>
+        <h3>Name</h3>
         <p><em>M</em>o<em>V</em>e <em>N</em>OT</p>
       </div>
       <div id="ref-lsl" class="page hidden">
@@ -357,21 +369,21 @@ END IF</code></pre>
         <p>Perform a left shift</p>
         <p>Moves the binary representation a specified number of bits to the left, padding with 0s on the right</p>
         <p>Any bits overflowing the far left are discarded</p>
-        <p><strong>Syntax</strong></p>
+        <h3>Syntax</h3>
         <p>LSL R<em>dest</em>, R<em>source</em>, R<em>by</em></p>
         <p>LSL R<em>dest</em>, R<em>source</em>, #<em>by</em></p>
-        <p><strong>Example</strong></p>
+        <h3>Example</h3>
         <code>LSL R1, R0, #1</code>
         <p>Shift register 0 by 1 place to the left placing the result in register 1</p>
         <code>LSL R2, R1, R0</code>
         <p>Shift register 1 to the left by register 0s value placing the result in register 2</p>
-        <p><strong>Pseudocode</strong></p>
+        <h3>Pseudocode</h3>
         <p>Shifts are not generally used pseudocode but assuming it was it's use would be similar to any other operator</p>
         <p>When given a register</p>
         <code>regs[dest] ← regs[source] LSL regs[by]</code>
         <p>When given a number</p>
         <code>regs[dest] ← regs[source] LSL by</code>
-        <p><strong>Name</strong></p>
+        <h3>Name</h3>
         <p><em>L</em>ogical <em>S</em>hift <em>L</em>eft</p>
       </div>
       <div id="ref-lsr" class="page hidden">
@@ -379,35 +391,35 @@ END IF</code></pre>
         <p>Perform a right shift</p>
         <p>Moves the binary representation a specified number of bits to the right, padding with 0s on the left</p>
         <p>Any bits overflowing the far right are discarded</p>
-        <p><strong>Syntax</strong></p>
+        <h3>Syntax</h3>
         <p>LSR R<em>dest</em>, R<em>source</em>, R<em>by</em></p>
         <p>LSR R<em>dest</em>, R<em>source</em>, #<em>by</em></p>
-        <p><strong>Example</strong></p>
+        <h3>Example</h3>
         <code>LSR R1, R0, #1</code>
         <p>Shift register 0 by 1 place to the right placing the result in register 1</p>
         <code>LSR R2, R1, R0</code>
         <p>Shift register 1 to the right by register 0s value placing the result in register 2</p>
-        <p><strong>Pseudocode</strong></p>
+        <h3>Pseudocode</h3>
         <p>Shifts are not generally used pseudocode but assuming it was it's use would be similar to any other operator</p>
         <p>When given a register</p>
         <code>regs[dest] ← regs[source] LSR regs[by]</code>
         <p>When given a number</p>
         <code>regs[dest] ← regs[source] LSR by</code>
-        <p><strong>Name</strong></p>
+        <h3>Name</h3>
         <p><em>L</em>ogical <em>S</em>hift <em>R</em>ight</p>
       </div>
       <div id="ref-halt" class="page hidden">
         <p>End execution</p>
-        <p><strong>Syntax</strong></p>
+        <h3>Syntax</h3>
         <p>HALT</p>
-        <p><strong>Example</strong></p>
+        <h3>Example</h3>
         <code>HALT</code>
         <p>Stops all execution</p>
-        <p><strong>Pseudocode</strong></p>
+        <h3>Pseudocode</h3>
         <p>The closest construct is returning from a procedure</p>
         <code>RETURN</code>
         <p>But that would imply execution returns to some other place rather than stopping altogether</p>
-        <p><strong>Name</strong></p>
+        <h3>Name</h3>
         <p><em>H</em><em>A</em><em>L</em><em>T</em></p>
       </div>
     </div>

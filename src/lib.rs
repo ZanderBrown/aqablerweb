@@ -23,8 +23,8 @@ impl Context {
         Context {
             // We have 12 registers
             regs: Registers::create(12),
-            // This gives us 32k "RAM"
-            mem: MainMemory::create(1000),
+            // This gives us 6.4k "RAM"
+            mem: MainMemory::create(200),
         }
     }
 
