@@ -21,14 +21,18 @@
     <h1>Aqabler</h1>
   </header>
   <div class="card program">
-    <div class="title"><h2>Program</h2><button id="run">Run</button></div>
+    <div class="title">
+      <h2>Program</h2><button id="run">Run</button>
+    </div>
     <textarea id="source" spellcheck="false" aria-label="Source Code">MOV R0, #42</textarea>
   </div>
   <section class="main">
     <div class="card" id="result">Please Wait...</div>
     <div class="hack01"></div>
-    <div class="card registers hidden">
-      <div class="title"><h2>Registers</h2></div>
+    <section class="card registers hidden">
+      <div class="title">
+        <h2>Registers</h2>
+      </div>
       <div id="registers"></div>
       <div class="footer">
         <select id="reg-mode">
@@ -36,25 +40,47 @@
           <option value="signed">Signed</option>
         </select>
       </div>
-    </div>
+    </section>
     <div class="hack01"></div>
-    <div class="card">
-      <div class="title"><h2>Aqabler</h2></div>
-      <p>Aqabler is blah based on pdf blah</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta quidem laborum facilis in corporis minima, est eius, tenetur assumenda libero necessitatibus praesentium ad, sapiente ratione ipsa neque! Illo, consequuntur culpa.</p>
-      <h3>Assumptions</h3>
-      <p>32bit blah because blah</p>
-      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maxime, voluptatum reprehenderit sed vitae aut culpa nostrum esse dolor suscipit accusantium quod, fugit numquam ut sapiente a autem iure quasi soluta!</p>
-      <p>Rem maiores magni assumenda ea eaque perferendis sequi, a eum dolores. Accusantium veniam dolorum id nostrum possimus hic minima, a eum illum assumenda iure incidunt, ipsam laudantium, totam similique. Quo?</p>
-      <p>Placeat ex atque earum dolorum maiores nihil omnis quae recusandae, blanditiis ullam, laboriosam accusantium quod provident voluptate, nemo quos sint hic. Ducimus eum ipsam excepturi quidem nesciunt fuga enim qui?</p>
-    </div>
+    <section class="card">
+      <div class="title">
+        <h2>Aqabler</h2>
+      </div>
+      <div class="content">
+        <p>Aqabler "a-qab-ler" is an implementation of the AQA Assembly Language Instruction as used in the 7516 & 7517 AS/A-Level
+          specification</p>
+        <p>The implementation follows <a href="https://filestore.aqa.org.uk/resources/computing/AQA-75162-75172-ALI.PDF">AQA's
+            spec</a> with extra information taken from past papers</p>
+        <h3>Past Papers</h3>
+        <ul>
+          <li><a href="https://filestore.aqa.org.uk/sample-papers-and-mark-schemes/2017/june/AQA-75172-QP-JUN17.PDF">2017
+              A-Level Paper 2 (Question 5)</a></li>
+          <li><a href="https://filestore.aqa.org.uk/sample-papers-and-mark-schemes/2017/june/AQA-75162-QP-JUN17.PDF">2017
+              AS Paper 2 (Question 7)</a></li>
+          <li><a href="https://filestore.aqa.org.uk/sample-papers-and-mark-schemes/2016/june/AQA-75162-QP-JUN16.PDF">2016
+              AS Paper 2 (Question 4)</a></li>
+          <li><a href="https://filestore.aqa.org.uk/resources/computing/AQA-75172-SQP.PDF">Specimen A-Level Paper 2
+              (Question 6)</a></li>
+          <li><a href="https://filestore.aqa.org.uk/resources/computing/AQA-75162-SQP.PDF">Specimen AS Paper 2
+              (Question 6)</a></li>
+        </ul>
+        <h3>Assumptions</h3>
+        <p>Registers are assumed to be 32bit as <a href="https://www.aqa.org.uk/resources/computer-science-and-it/as-and-a-level/computer-science-7516-7517/plan/guidance-on-areas-of-concern">it
+            is stated that</a> the language "is based on the ARM Assembly Language used by the Raspberry Pi."</p>
+        <p></p>
+      </div>
+    </section>
   </section>
   <main class="reference">
     <div class="card">
-      <div class="title"><h2>Reference</h2></div>
+      <div class="title">
+        <h2>Reference</h2>
+      </div>
       <div class="page-title hidden">
         <div class="back" tabindex="0">←</div>
-        <div class="title"><h2>Reference</h2></div>
+        <div class="title">
+          <h2>Reference</h2>
+        </div>
       </div>
       <div class="overview">
         <p class="heading" tabindex="0">Memory</p>
@@ -204,7 +230,8 @@ END IF</code></pre>
       <div id="ref-branching-overview" class="page hidden">
         <p>Branching is an important low level construct but is rarely seen in higher level languages</p>
         <p>Those that do include branching generally refer to it as 'GOTOs', as is the case in BASIC, C/C++ &amp; C#</p>
-        <p>Most languages omit branching because they build more powerful concepts atop it such as subroutines, if statements and loops</p>
+        <p>Most languages omit branching because they build more powerful concepts atop it such as subroutines, if
+          statements and loops</p>
       </div>
       <div id="ref-b" class="page hidden">
         <p>Unconditional branch or 'jump'</p>
@@ -284,10 +311,14 @@ END IF</code></pre>
         <!-- TODO: Improve -->
         <p>Bitwise operations consider the binary representation of integers</p>
         <p>It's important not to confuse these with their boolean equivalents as they can behave quite differently</p>
-        <p>Even in languages with a boolean type they are really integers where 0 is false and <strong>any</strong> other value is true, thus 'a AND b' checks that neither a or b equal 0</p>
-        <p>However bitwise operators work on the bits that make up the integer rather than it's value, for example a logical AND between 1 &amp; 8 would be true as neither are zero but a bitwise AND between them is 0</p>
-        <p>Shifts move bits around, so shifting 0010 (2) to the left by two is 1000 (8) whereas shifting to right would be 0000 (0)</p>
-        <p>It's important to remember that even though bitwise and shift operations work with integers they do not work on them as numbers</p>
+        <p>Even in languages with a boolean type they are really integers where 0 is false and <strong>any</strong>
+          other value is true, thus 'a AND b' checks that neither a or b equal 0</p>
+        <p>However bitwise operators work on the bits that make up the integer rather than it's value, for example a
+          logical AND between 1 &amp; 8 would be true as neither are zero but a bitwise AND between them is 0</p>
+        <p>Shifts move bits around, so shifting 0010 (2) to the left by two is 1000 (8) whereas shifting to right would
+          be 0000 (0)</p>
+        <p>It's important to remember that even though bitwise and shift operations work with integers they do not work
+          on them as numbers</p>
       </div>
       <div id="ref-and" class="page hidden">
         <p>Bitwise AND between two values</p>
@@ -328,7 +359,8 @@ END IF</code></pre>
       </div>
       <div id="ref-eor" class="page hidden">
         <p>Bitwise exclusive OR between two values</p>
-        <p>That is to say it performs a logical exclusive OR between each bit, so the EOR of 2 (0010) &amp; 6 (0110) is 4 (0100)</p>
+        <p>That is to say it performs a logical exclusive OR between each bit, so the EOR of 2 (0010) &amp; 6 (0110) is
+          4 (0100)</p>
         <p>As exclusive OR only allows one input to be true in the style of (a or b) and not (a and b)</p>
         <h3>Syntax</h3>
         <p>EOR R<em>dest</em>, R<em>source</em>, R<em>other</em></p>
@@ -337,7 +369,8 @@ END IF</code></pre>
         <code>EOR R0, R1, R2</code>
         <p>Performs a logical exclusive OR (XOR) between register 1 and register 2 placing the result in register 0</p>
         <h3>Pseudocode</h3>
-        <p>Neither OR or AND operators are bitwise because they are logical so produce a boolean result rather than integer</p>
+        <p>Neither OR or AND operators are bitwise because they are logical so produce a boolean result rather than
+          integer</p>
         <p>When given a register</p>
         <code>regs[dest] ← (regs[source] OR regs[other]) AND NOT (regs[source] AND regs[other])</code>
         <p>When given a number</p>
