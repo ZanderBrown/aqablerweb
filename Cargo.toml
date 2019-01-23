@@ -2,6 +2,7 @@
 name = "aqablerweb"
 version = "0.1.0"
 authors = ["Zander Brown <ZanderBrown@users.noreply.github.com>"]
+edition = "2018"
 
 [lib]
 crate-type = ["cdylib"]

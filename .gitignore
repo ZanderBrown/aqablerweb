@@ -4,9 +4,9 @@
 Cargo.lock
 node_modules
 package-lock.json
-aqablerweb_bg.wasm
-aqablerweb.d.ts
-aqablerweb.js
+aqabler.wasm
+aqabler.d.ts
+aqabler.js
 faviconData.json
 icons
 aqablerweb

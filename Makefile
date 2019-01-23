@@ -4,7 +4,7 @@ rust:
 	cargo +nightly build --target wasm32-unknown-unknown --release
 
 bind:
-	wasm-bindgen target/wasm32-unknown-unknown/release/aqablerweb.wasm --out-dir .
+	wasm-bindgen target/wasm32-unknown-unknown/release/aqablerweb.wasm --out-dir . --out-name aqabler.wasm
 
 gulp: faviconData.json
 	gulp
@@ -18,7 +18,7 @@ serve:
 clean:
 	rm -rf docs
 	rm -rf icons
-	rm aqablerweb.js
-	rm aqablerweb.d.ts
-	rm aqablerweb_bg.wasm
+	rm aqabler.js
+	rm aqabler.d.ts
+	rm aqabler.wasm
 	cargo clean

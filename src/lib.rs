@@ -1,6 +1,4 @@
-extern crate aqabler;
-extern crate wasm_bindgen;
-
+use wasm_bindgen;
 use wasm_bindgen::prelude::*;
 
 use aqabler::Eval;

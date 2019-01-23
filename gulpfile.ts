@@ -1,6 +1,5 @@
-const gulp = require('gulp');
 const webpack = require('webpack-stream');
-const less = require('gulp-less');
+const lessc = require('gulp-less');
 let fav = require('gulp-real-favicon');
 const generateFavicon = fav.generateFavicon;
 const injectFaviconMarkups = fav.injectFaviconMarkups;
@@ -9,65 +8,20 @@ const mincss = require('gulp-clean-css');
 const minhtml = require('gulp-htmlmin');
 const minsvg = require('gulp-svgmin');
 
+const { series, src, dest } = require('gulp');
+
 const output = './aqablerweb/';
 
-gulp.task('default', ['less', 'html', 'logo', 'other', 'js'], () => {
-	return gulp.src('./aqablerweb/*').pipe(gulp.dest('./docs/'));
-});
-
-gulp.task('other', () => {
-	return gulp.src([
-		'./icons/*',
-		'robots.txt'
-	])
-		.pipe(gulp.dest(output));
-});
-
-gulp.task('js', ['js-index', 'js-service']);
-
-gulp.task('js-index', () => {
-	return gulp.src(['./index.js','./aqabler.js', './*.wasm'])
-		.pipe(webpack({
-			entry: "./index.js",
-			output: {
-				webassemblyModuleFilename: "aqabler.wasm",
-				filename: "index.js"
-			},
-			mode: "production"
-		}, require("webpack")))
-		.pipe(gulp.dest(output));
-});
-
-gulp.task('js-service', ['less', 'html', 'logo'], cb => {
-	const path = require('path');
-	const cache = require('sw-precache');
-	const uglify = require('gulp-uglify');
-	cache.write(path.join('tmp', 'service.js'), {
-		cacheId: "aqablerweb",
-		staticFileGlobs: ['aqablerweb/index.html', 'aqablerweb/*.js', 'aqablerweb/*.css', 'aqablerweb/*.wasm', 'aqablerweb/logo.svg'],
-		stripPrefix: 'aqablerweb',
-		replacePrefix: '/aqablerweb'
-	}, () => {
-		gulp.src('tmp/*.js').pipe(uglify()).pipe(gulp.dest(output));
-		cb();
-	});
-});
-
-gulp.task('less', () => {
-	return gulp.src('./*.less')
-		.pipe(less())
+export function less(cb) {
+	src('./*.less')
+		.pipe(lessc())
 		.pipe(mincss())
-		.pipe(gulp.dest(output));
-});
-
-gulp.task('logo', () => {
-	return gulp.src('./logo.svg')
-		.pipe(minsvg())
-		.pipe(gulp.dest(output));
-});
+		.pipe(dest(output));
+	cb();
+};
 
 var FAVICON_DATA_FILE = 'faviconData.json';
-gulp.task('favicons', done => {
+export function favicons(done) {
 	generateFavicon({
 		masterPicture: './favicon.png',
 		dest: './icons',
@@ -133,11 +87,70 @@ gulp.task('favicons', done => {
 		},
 		markupFile: FAVICON_DATA_FILE
 	}, done);
-});
+};
 
-gulp.task('html', ['favicons'], () => {
-	return gulp.src(['index.html'])
+function _html(cb) {
+	src(['index.html'])
 		.pipe(injectFaviconMarkups(JSON.parse(readFileSync(FAVICON_DATA_FILE)).favicon.html_code))
 		.pipe(minhtml({ collapseWhitespace: true }))
-		.pipe(gulp.dest(output));
-});
+		.pipe(dest(output));
+	cb();
+};
+export const html = series(favicons, _html);
+
+export function logo(cb) {
+	src('./logo.svg')
+		.pipe(minsvg())
+		.pipe(dest(output));
+	cb();
+}
+
+export function other(cb) {
+	src([
+		'./icons/*',
+		'robots.txt'
+	])
+		.pipe(dest(output));
+	cb();
+};
+
+export function js_index(cb) {
+	src(['./index.js', './aqabler.js', './*.wasm'])
+		.pipe(webpack({
+			entry: "./index.js",
+			output: {
+				webassemblyModuleFilename: "aqabler.wasm",
+				filename: "index.js"
+			},
+			mode: "production"
+		}, require("webpack")))
+		.pipe(dest(output));
+	cb();
+};
+
+function _js_service(cb) {
+	const path = require('path');
+	const cache = require('sw-precache');
+	const uglify = require('gulp-uglify');
+	cache.write(path.join('tmp', 'service.js'), {
+		cacheId: "aqablerweb",
+		staticFileGlobs: ['aqablerweb/index.html', 'aqablerweb/*.js', 'aqablerweb/*.css', 'aqablerweb/*.wasm', 'aqablerweb/logo.svg'],
+		stripPrefix: 'aqablerweb',
+		replacePrefix: '/aqablerweb'
+	}, () => {
+		src('tmp/*.js').pipe(uglify()).pipe(dest(output));
+		cb();
+	});
+};
+export const js_service = series(less, html, logo, _js_service);
+
+export const js = series(js_index, js_service);
+
+function _default(cb) {
+	src('./aqablerweb/*').pipe(dest('./docs/'));
+	cb();
+}
+
+const aqabler = series(less, html, logo, other, js, _default);
+
+export default aqabler;
