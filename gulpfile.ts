@@ -12,7 +12,7 @@ const { series, src, dest } = require('gulp');
 
 const output = './aqablerweb/';
 
-export function less(cb) {
+export function less(cb: Function) {
 	src('./*.less')
 		.pipe(lessc())
 		.pipe(mincss())
@@ -21,7 +21,7 @@ export function less(cb) {
 };
 
 var FAVICON_DATA_FILE = 'faviconData.json';
-export function favicons(done) {
+export function favicons(done: Function) {
 	generateFavicon({
 		masterPicture: './favicon.png',
 		dest: './icons',
@@ -89,7 +89,7 @@ export function favicons(done) {
 	}, done);
 };
 
-function _html(cb) {
+function _html(cb: Function) {
 	src(['index.html'])
 		.pipe(injectFaviconMarkups(JSON.parse(readFileSync(FAVICON_DATA_FILE)).favicon.html_code))
 		.pipe(minhtml({ collapseWhitespace: true }))
@@ -98,14 +98,14 @@ function _html(cb) {
 };
 export const html = series(favicons, _html);
 
-export function logo(cb) {
+export function logo(cb: Function) {
 	src('./logo.svg')
 		.pipe(minsvg())
 		.pipe(dest(output));
 	cb();
 }
 
-export function other(cb) {
+export function other(cb: Function) {
 	src([
 		'./icons/*',
 		'robots.txt'
@@ -114,8 +114,8 @@ export function other(cb) {
 	cb();
 };
 
-export function js_index(cb) {
-	src(['./index.js', './aqabler.js', './*.wasm'])
+export function js_index(cb: Function) {
+	src(['./index.js', './aqablerweb.js', './*.wasm'])
 		.pipe(webpack({
 			entry: "./index.js",
 			output: {
@@ -128,7 +128,7 @@ export function js_index(cb) {
 	cb();
 };
 
-function _js_service(cb) {
+function _js_service(cb: Function) {
 	const path = require('path');
 	const cache = require('sw-precache');
 	const uglify = require('gulp-uglify');
@@ -146,7 +146,7 @@ export const js_service = series(less, html, logo, _js_service);
 
 export const js = series(js_index, js_service);
 
-function _default(cb) {
+function _default(cb: Function) {
 	src('./aqablerweb/*').pipe(dest('./docs/'));
 	cb();
 }

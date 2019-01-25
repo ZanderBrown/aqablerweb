@@ -1,5 +1,6 @@
 use wasm_bindgen;
 use wasm_bindgen::prelude::*;
+use js_sys;
 
 use aqabler::Eval;
 use aqabler::Input;
@@ -77,5 +78,12 @@ impl Context {
     #[wasm_bindgen(js_name = getMemLength)]
     pub fn get_mem_length(&self) -> usize {
         self.mem.len()
+    }
+
+    #[wasm_bindgen(js_name = listenMem)]
+    pub fn listen_mem (&self, listen: &js_sys::Function) -> Result<(), JsValue> {
+        let this = JsValue::NULL;
+        listen.call2(&this, &JsValue::from(12), &JsValue::from(12))?;
+        Ok(())
     }
 }

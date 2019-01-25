@@ -44,13 +44,13 @@ window.addEventListener('load', () => {
     let registerswrap = document.querySelector('.registers');
     let registersmode = document.getElementById('reg-mode');
 
-    registersmode.addEventListener('change', e => {
+    registersmode.addEventListener('change', () => {
         if (context) {
             show_regs(registers, context, registersmode.value == 'signed');
         }
     });
 
-    const aqabler = import("./aqablerweb");
+    const aqabler = import("./aqablerweb.js");
     aqabler.then(aqabler => {
         show_message("Ready");
         let first = true;
@@ -62,6 +62,11 @@ window.addEventListener('load', () => {
             let program = source.value;
             try {
                 context = new aqabler.Context();
+                context.listenMem((a, b) => {
+                    console.log(arguments)
+                    console.log(a);
+                    console.log(b);
+                });
                 show_message(context.run(program));
             } catch (e) {
                 show_message("Internal Error");
@@ -99,9 +104,7 @@ window.addEventListener('load', () => {
         currentsec.classList.toggle('expanded');
     };
 
-    for (let elm of overview.querySelectorAll('.heading')) {
-        connect(elm, expand);
-    }
+    overview.querySelectorAll('.heading').forEach(elm => connect(elm, expand));
 
     let currentref = undefined;
     let reftitle = document.querySelector('.reference .title');
@@ -136,17 +139,15 @@ window.addEventListener('load', () => {
         }
     };
 
-    for (let elm of overview.querySelectorAll('li')) {
-        connect(elm, show);
-    }
+    overview.querySelectorAll('li').forEach(elm => connect(elm, show));
 });
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('service.js', { scope: './' })
         .then(() => console.info('Service Worker Registered')).catch(e => {
-			console.error("Service Worker Registration Failed");
-			console.error(e);
-		});
+            console.error("Service Worker Registration Failed");
+            console.error(e);
+        });
 } else {
     console.warn("Service Worker Unsupported");
 }
