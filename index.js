@@ -25,6 +25,7 @@ function show_regs (registers, context, signed) {
         reg.innerText = "R" + i;
         let val = document.createElement("span");
         val.innerText = context.getReg(i, signed);
+
         row.appendChild(reg);
         row.appendChild(val);
 
@@ -54,6 +55,7 @@ window.addEventListener('load', () => {
     aqabler.then(aqabler => {
         show_message("Ready");
         let first = true;
+        window.Context = aqabler.Context;
         run.addEventListener("click", () => {
             if (first) {
                 first = false;
@@ -62,10 +64,11 @@ window.addEventListener('load', () => {
             let program = source.value;
             try {
                 context = new aqabler.Context();
-                context.listenMem((a, b) => {
-                    console.log(arguments)
-                    console.log(a);
-                    console.log(b);
+                context.listenReg((reg, val) => {
+                    console.log(`R ${reg} set to ${val}`);
+                });
+                context.listenMem((mem, val) => {
+                    console.log(`M ${mem} set to ${val}`);
                 });
                 show_message(context.run(program));
             } catch (e) {
@@ -146,7 +149,7 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('service.js', { scope: './' })
         .then(() => console.info('Service Worker Registered')).catch(e => {
             console.error("Service Worker Registration Failed");
-            console.error(e);
+            console.error(e.message);
         });
 } else {
     console.warn("Service Worker Unsupported");
