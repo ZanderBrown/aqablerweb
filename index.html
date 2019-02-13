@@ -29,13 +29,25 @@
   <section class="main">
     <div class="card" id="result">Please Wait...</div>
     <div class="hack01"></div>
-    <section class="card registers hidden">
+    <section class="card viewer registers hidden">
       <div class="title">
         <h2>Registers</h2>
       </div>
-      <div id="registers"></div>
+      <div id="registers" class="data"></div>
       <div class="footer">
         <select id="reg-mode">
+          <option value="unsigned" selected>Unsigned</option>
+          <option value="signed">Signed</option>
+        </select>
+      </div>
+    </section>
+    <section class="card viewer memory hidden">
+      <div class="title">
+        <h2>Memory</h2>
+      </div>
+      <div id="memory" class="data"></div>
+      <div class="footer">
+        <select id="mem-mode">
           <option value="unsigned" selected>Unsigned</option>
           <option value="signed">Signed</option>
         </select>

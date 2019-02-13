@@ -1,5 +1,6 @@
 // @ts-check
 
+/** @type {HTMLTextAreaElement} */
 let source = document.getElementById("source");
 let result = document.getElementById("result");
 let run = document.getElementById("run");
@@ -17,23 +18,31 @@ function show_message(msg) {
 
 let regs = [];
 
+function makeRow(titleText, valueText) {
+    let row = document.createElement("div");
+
+    let title = document.createElement("span");
+    title.innerText = titleText;
+    let value = document.createElement("span");
+    value.innerText = valueText;
+
+    row.appendChild(title);
+    row.appendChild(value);
+
+    return {row,title,value}
+}
+
 function show_regs (registers, context, signed) {
     let count = context.getRegCount();
     for (let i = 0; i < count; i++) {
         if (!regs[i]) {
-            let row = document.createElement("div");
+            let row = makeRow('R' + i, '');
 
-            let reg = document.createElement("span");
-            reg.innerText = "R" + i;
-            let val = document.createElement("span");
-            regs[i] = val;
+            regs[i] = row.value;
 
-            row.appendChild(reg);
-            row.appendChild(val);
-
-            registers.appendChild(row);
+            registers.appendChild(row.row);
         }
-        regs[i].innerText = context.format(context.getReg(i), signed);
+        regs[i].innerText = Context.format(context.getReg(i), signed);
     }
 }
 
@@ -47,11 +56,22 @@ window.addEventListener('load', () => {
 
     let registers = document.getElementById("registers");
     let registerswrap = document.querySelector('.registers');
+    /** @type {HTMLSelectElement} */
     let registersmode = document.getElementById('reg-mode');
+    let memory = document.getElementById("memory");
+    let memorywrap = document.querySelector('.memory');
+    /** @type {HTMLSelectElement} */
+    let memorymode = document.getElementById('mem-mode');
 
     registersmode.addEventListener('change', () => {
         if (context) {
             show_regs(registers, context, registersmode.value == 'signed');
+        }
+    });
+
+    memorymode.addEventListener('change', () => {
+        if (context) {
+            context.showMem(registers, memorymode.value == 'signed');
         }
     });
 
@@ -60,25 +80,57 @@ window.addEventListener('load', () => {
         show_message("Ready");
         let first = true;
         window.Context = aqabler.Context;
+        let mems = [];
+
+        class Run extends aqabler.Context {
+            constructor () {
+                super();
+
+                function showChange (elm, box) {
+                    setTimeout(() => {
+                        elm.classList.add("changed");
+                        box.scrollTop = elm.offsetTop
+                        setTimeout(() => elm.classList.remove("changed"), 1000);
+                    }, 0);
+                }
+
+                this.listenReg((reg, val) => {
+                    regs[reg].title = regs[reg].innerText = aqabler.Context.format(val, registersmode.value == 'signed');
+                    showChange(regs[reg], registers);
+                });
+
+                this.listenMem((mem, val) => {
+                    mems[mem].title = mems[mem].innerText = aqabler.Context.format(val, memorymode.value == 'signed');
+                    showChange(mems[mem], memory);
+                });
+            }
+
+            showMem (container, signed) {
+                let count = this.getMemLength();
+                for (let i = 0; i < count; i++) {
+                    if (!mems[i]) {
+                        let row = makeRow(i, '');
+            
+                        mems[i] = row.value;
+            
+                        container.appendChild(row.row);
+                    }
+                    mems[i].innerText = aqabler.Context.format(this.getMem(i), signed);
+                }
+            }
+        }
         run.addEventListener("click", () => {
             if (first) {
                 first = false;
                 registerswrap.classList.remove('hidden');
+                memorywrap.classList.remove('hidden');
             }
             let program = source.value;
             try {
-                context = new aqabler.Context();
-                show_regs(registers, context, registersmode.value == 'signed');
-                context.listenReg((reg, val) => {
-                    setTimeout(() => {
-                        regs[reg].innerText = context.format(val, registersmode.value == 'signed');
-                        regs[reg].classList.add("changed");
-                        setTimeout(() => regs[reg].classList.remove("changed"), 1000);
-                    }, 0);
-                });
-                context.listenMem((mem, val) => {
-                    console.log(`M ${mem} set to ${val}`);
-                });
+                context = new Run();
+                let signed = registersmode.value == 'signed';
+                show_regs(registers, context, signed);
+                context.showMem(memory, signed);
                 show_message(context.run(program));
             } catch (e) {
                 show_message("Internal Error");

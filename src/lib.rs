@@ -12,19 +12,27 @@ use aqabler::Storage;
 
 use std::rc::Rc;
 
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(js_namespace = console, js_name = log)]
+    fn log_value(s: JsValue);
+}
+
 struct Listen(JsValue);
 
 impl Observer<ChangeEvent> for Listen {
     fn notify(&self, evt: ChangeEvent) {
         let this = JsValue::NULL;
-        js_sys::Function::try_from(&self.0)
-            .expect("Callback failed")
-            .call2(
+        if let Some(func) = js_sys::Function::try_from(&self.0) {
+            match func.call2(
                 &this,
                 &JsValue::from(evt.idx as u32),
                 &JsValue::from(evt.val as u32),
-            )
-            .expect("Callback failed");
+            ) {
+                Ok(_) => (),
+                Err(err) => log_value(err),
+            }
+        }
     }
 }
 
@@ -116,7 +124,7 @@ impl Context {
         Ok(())
     }
 
-    pub fn format(&self, val: u32, signed: bool) -> String {
+    pub fn format(val: u32, signed: bool) -> String {
         if signed {
             // Pad hex within 8 '0'
             format!("{:08X} ({})", val as i32, val as i32)
