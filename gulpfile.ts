@@ -89,14 +89,13 @@ export function favicons(done: Function) {
 	}, done);
 };
 
-function _html(cb: Function) {
+export function html(cb: Function) {
 	src(['index.html'])
 		.pipe(injectFaviconMarkups(JSON.parse(readFileSync(FAVICON_DATA_FILE)).favicon.html_code))
 		.pipe(minhtml({ collapseWhitespace: true }))
 		.pipe(dest(output));
 	cb();
 };
-export const html = series(favicons, _html);
 
 export function logo(cb: Function) {
 	src('./logo.svg')

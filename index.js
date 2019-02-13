@@ -15,21 +15,25 @@ function show_message(msg) {
     }, 0);
 }
 
+let regs = [];
+
 function show_regs (registers, context, signed) {
-    while (registers.firstChild) registers.removeChild(registers.firstChild);
     let count = context.getRegCount();
     for (let i = 0; i < count; i++) {
-        let row = document.createElement("div");
+        if (!regs[i]) {
+            let row = document.createElement("div");
 
-        let reg = document.createElement("span");
-        reg.innerText = "R" + i;
-        let val = document.createElement("span");
-        val.innerText = context.getReg(i, signed);
+            let reg = document.createElement("span");
+            reg.innerText = "R" + i;
+            let val = document.createElement("span");
+            regs[i] = val;
 
-        row.appendChild(reg);
-        row.appendChild(val);
+            row.appendChild(reg);
+            row.appendChild(val);
 
-        registers.appendChild(row);
+            registers.appendChild(row);
+        }
+        regs[i].innerText = context.format(context.getReg(i), signed);
     }
 }
 
@@ -64,8 +68,13 @@ window.addEventListener('load', () => {
             let program = source.value;
             try {
                 context = new aqabler.Context();
+                show_regs(registers, context, registersmode.value == 'signed');
                 context.listenReg((reg, val) => {
-                    console.log(`R ${reg} set to ${val}`);
+                    setTimeout(() => {
+                        regs[reg].innerText = context.format(val, registersmode.value == 'signed');
+                        regs[reg].classList.add("changed");
+                        setTimeout(() => regs[reg].classList.remove("changed"), 1000);
+                    }, 0);
                 });
                 context.listenMem((mem, val) => {
                     console.log(`M ${mem} set to ${val}`);
@@ -75,7 +84,6 @@ window.addEventListener('load', () => {
                 show_message("Internal Error");
                 console.error(e);
             }
-            show_regs(registers, context, registersmode.value == 'signed');
         });
     }).catch(e => {
         show_message("Failed to load Aqabler");

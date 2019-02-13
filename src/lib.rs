@@ -71,35 +71,19 @@ impl Context {
     }
 
     #[wasm_bindgen(js_name = getReg)]
-    pub fn get_reg(&self, reg: usize, signed: bool) -> Result<String, JsValue> {
-        let v = self
+    pub fn get_reg(&self, reg: usize) -> Result<u32, JsValue> {
+        Ok(self
             .regs
             .get(reg, "Register")
-            .map_err(|err| err.to_string())?;
-
-        if signed {
-            // Pad hex within 8 '0'
-            Ok(format!("{:08X} ({})", v as i32, v as i32))
-        } else {
-            // Pad hex within 8 '0'
-            Ok(format!("{:08X} ({})", v as u32, v as u32))
-        }
+            .map_err(|err| err.to_string())?)
     }
 
     #[wasm_bindgen(js_name = getMem)]
-    pub fn get_mem(&self, mem: usize, signed: bool) -> Result<String, JsValue> {
-        let v = self
+    pub fn get_mem(&self, mem: usize) -> Result<u32, JsValue> {
+        Ok(self
             .mem
             .get(mem, "Memory Address")
-            .map_err(|err| err.to_string())?;
-
-        if signed {
-            // Pad hex within 8 '0'
-            Ok(format!("{:08X} ({})", v as i32, v as i32))
-        } else {
-            // Pad hex within 8 '0'
-            Ok(format!("{:08X} ({})", v as u32, v as u32))
-        }
+            .map_err(|err| err.to_string())?)
     }
 
     #[wasm_bindgen(js_name = setMem)]
@@ -130,5 +114,15 @@ impl Context {
         self.mem.add_observer(Rc::downgrade(&rc));
         self.listeners.push(rc);
         Ok(())
+    }
+
+    pub fn format(&self, val: u32, signed: bool) -> String {
+        if signed {
+            // Pad hex within 8 '0'
+            format!("{:08X} ({})", val as i32, val as i32)
+        } else {
+            // Pad hex within 8 '0'
+            format!("{:08X} ({})", val as u32, val as u32)
+        }
     }
 }
