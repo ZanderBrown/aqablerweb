@@ -5,7 +5,7 @@ let source = document.getElementById("source");
 let result = document.getElementById("result");
 let run = document.getElementById("run");
 
-function show_message(msg) {
+function showMessage(msg) {
     result.innerText = msg;
     setTimeout(() => {
         if (result.innerText != "Success" && result.innerText != "Ready") {
@@ -15,8 +15,6 @@ function show_message(msg) {
         }
     }, 0);
 }
-
-let regs = [];
 
 function makeRow(titleText, valueText) {
     let row = document.createElement("div");
@@ -32,25 +30,9 @@ function makeRow(titleText, valueText) {
     return {row,title,value}
 }
 
-function show_regs (registers, context, signed) {
-    let count = context.getRegCount();
-    for (let i = 0; i < count; i++) {
-        if (!regs[i]) {
-            let row = makeRow('R' + i, '');
-
-            regs[i] = row.value;
-
-            registers.appendChild(row.row);
-        }
-        regs[i].innerText = Context.format(context.getReg(i), signed);
-    }
-}
-
-let context = null;
-
 window.addEventListener('load', () => {
     if (!('WebAssembly' in window)) {
-        show_message("Web browser isn't supported :-(");
+        showMessage("Web browser isn't supported :-(");
         return;
     }
 
@@ -63,9 +45,11 @@ window.addEventListener('load', () => {
     /** @type {HTMLSelectElement} */
     let memorymode = document.getElementById('mem-mode');
 
+    let context = null;
+
     registersmode.addEventListener('change', () => {
         if (context) {
-            show_regs(registers, context, registersmode.value == 'signed');
+            context.showRegs(registers, registersmode.value == 'signed');
         }
     });
 
@@ -77,12 +61,13 @@ window.addEventListener('load', () => {
 
     const aqabler = import("./aqablerweb.js");
     aqabler.then(aqabler => {
-        show_message("Ready");
+        showMessage("Ready");
         let first = true;
-        window.Context = aqabler.Context;
+        const Context = aqabler.Context;
         let mems = [];
+        let regs = [];
 
-        class Run extends aqabler.Context {
+        class Run extends Context {
             constructor () {
                 super();
 
@@ -95,14 +80,28 @@ window.addEventListener('load', () => {
                 }
 
                 this.listenReg((reg, val) => {
-                    regs[reg].title = regs[reg].innerText = aqabler.Context.format(val, registersmode.value == 'signed');
+                    regs[reg].title = regs[reg].innerText = Context.format(val, registersmode.value == 'signed');
                     showChange(regs[reg], registers);
                 });
 
                 this.listenMem((mem, val) => {
-                    mems[mem].title = mems[mem].innerText = aqabler.Context.format(val, memorymode.value == 'signed');
+                    mems[mem].title = mems[mem].innerText = Context.format(val, memorymode.value == 'signed');
                     showChange(mems[mem], memory);
                 });
+            }
+
+            showRegs (registers, signed) {
+                let count = this.getRegCount();
+                for (let i = 0; i < count; i++) {
+                    if (!regs[i]) {
+                        let row = makeRow('R' + i, '');
+            
+                        regs[i] = row.value;
+            
+                        registers.appendChild(row.row);
+                    }
+                    regs[i].innerText = Context.format(this.getReg(i), signed);
+                }
             }
 
             showMem (container, signed) {
@@ -115,7 +114,7 @@ window.addEventListener('load', () => {
             
                         container.appendChild(row.row);
                     }
-                    mems[i].innerText = aqabler.Context.format(this.getMem(i), signed);
+                    mems[i].innerText = Context.format(this.getMem(i), signed);
                 }
             }
         }
@@ -129,16 +128,16 @@ window.addEventListener('load', () => {
             try {
                 context = new Run();
                 let signed = registersmode.value == 'signed';
-                show_regs(registers, context, signed);
+                context.showRegs(registers, signed);
                 context.showMem(memory, signed);
-                show_message(context.run(program));
+                showMessage(context.run(program));
             } catch (e) {
-                show_message("Internal Error");
+                showMessage("Internal Error");
                 console.error(e);
             }
         });
     }).catch(e => {
-        show_message("Failed to load Aqabler");
+        showMessage("Failed to load Aqabler");
         console.error(e);
     });
 
