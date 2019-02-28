@@ -27,7 +27,18 @@
     <textarea id="source" spellcheck="false" aria-label="Source Code">MOV R0, #42</textarea>
   </div>
   <section class="main">
-    <div class="card" id="result">Please Wait...</div>
+    <div class="card" id="result">
+      <div id="msgbox">Please Wait...</div>
+      <div class="status-regs">
+        <span>PC</span><span id="pc-val">0</span>
+        <span>Address</span><span id="addr-val">0</span>
+        <span>Status</span><span id="stat-val">0</span>
+      </div>
+      <div class="status-regs">
+        <span>Buffer</span><span id="buf-val">0</span>
+        <span>Instruction</span><span id="ins-val">0</span>
+      </div>
+    </div>
     <div class="hack01"></div>
     <section class="card viewer registers hidden">
       <div class="title">
@@ -103,6 +114,7 @@
         </ul>
         <p class="heading" tabindex="0">Arithmetic</p>
         <ul>
+          <li tabindex="0">Number Constant</li>
           <li tabindex="0">ADD</li>
           <li tabindex="0">SUB</li>
         </ul>
@@ -172,6 +184,18 @@
         <code>regs[dest] ← number</code>
         <h3>Name</h3>
         <p><em>M</em><em>O</em><em>V</em>e</p>
+      </div>
+      <div id="ref-number-constant" class="page hidden">
+        <p>Stuipid complex, #- will twos complement for you</p>
+        <blockquote>
+            You specify an Operand2 constant in the form:
+
+            #constant
+            where constant is an expression evaluating to a numeric value.
+            
+            In ARM instructions, constant can have any value that can be produced by rotating an 8-bit value right by any even number of bits within a 32-bit word.
+        </blockquote>
+        <a href="http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0489f/CIHFDDHB.html">ARM</a>
       </div>
       <div id="ref-add" class="page hidden">
         <p>Add a register or number to a register storing the result</p>
@@ -265,12 +289,12 @@ END IF</code></pre>
         <p>BEQ <em>label</em></p>
         <h3>Example</h3>
         <code>BEQ marker</code>
-        <p>Conditionaly moves execution to the line labled 'marker'</p>
+        <p>Conditionally moves execution to the line labelled 'marker'</p>
         <h3>Pseudocode</h3>
         <pre><code>IF flag = "equal" THEN
   marker()
 END IF</code></pre>
-        <p>Unfortunatly this doesn't exactly represent BEQ</p>
+        <p>Unfortunately this doesn't exactly represent BEQ</p>
         <h3>Name</h3>
         <p><em>B</em>ranch <em>E</em><em>Q</em>ual</p>
       </div>
@@ -280,12 +304,12 @@ END IF</code></pre>
         <p>BNE <em>label</em></p>
         <h3>Example</h3>
         <code>BNE marker</code>
-        <p>Conditionaly moves execution to the line labled 'marker'</p>
+        <p>Conditionally moves execution to the line labelled 'marker'</p>
         <h3>Pseudocode</h3>
         <pre><code>IF NOT flag = "equal" THEN
   marker()
 END IF</code></pre>
-        <p>Unfortunatly this doesn't exactly represent BNE</p>
+        <p>Unfortunately this doesn't exactly represent BNE</p>
         <h3>Name</h3>
         <p><em>B</em>ranch <em>N</em>ot <em>E</em>qual</p>
       </div>
@@ -295,12 +319,12 @@ END IF</code></pre>
         <p>BGT <em>label</em></p>
         <h3>Example</h3>
         <code>BGT marker</code>
-        <p>Conditionaly moves execution to the line labled 'marker'</p>
+        <p>Conditionally moves execution to the line labelled 'marker'</p>
         <h3>Pseudocode</h3>
         <pre><code>IF flag = "greater" THEN
   marker()
 END IF</code></pre>
-        <p>Unfortunatly this doesn't exactly represent BGT</p>
+        <p>Unfortunately this doesn't exactly represent BGT</p>
         <h3>Name</h3>
         <p><em>B</em>ranch <em>G</em>reater <em>T</em>han</p>
       </div>
@@ -310,12 +334,12 @@ END IF</code></pre>
         <p>BLT <em>label</em></p>
         <h3>Example</h3>
         <code>BLT marker</code>
-        <p>Conditionaly moves execution to the line labled 'marker'</p>
+        <p>Conditionally moves execution to the line labelled 'marker'</p>
         <h3>Pseudocode</h3>
         <pre><code>IF flag = "less" THEN
   marker()
 END IF</code></pre>
-        <p>Unfortunatly this doesn't exactly represent BLT</p>
+        <p>Unfortunately this doesn't exactly represent BLT</p>
         <h3>Name</h3>
         <p><em>B</em>ranch <em>L</em>ess <em>T</em>han</p>
       </div>
@@ -367,7 +391,7 @@ END IF</code></pre>
         <code>regs[dest] ← regs[source] OR number</code>
         <h3>Name</h3>
         <p><em>O</em><em>R</em>(<em>R</em>)</p>
-        <p>Additional R is used to maintain consistant three letter commands</p>
+        <p>Additional R is used to maintain consistent three letter commands</p>
       </div>
       <div id="ref-eor" class="page hidden">
         <p>Bitwise exclusive OR between two values</p>

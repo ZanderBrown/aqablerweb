@@ -1,14 +1,23 @@
 // @ts-check
 
 /** @type {HTMLTextAreaElement} */
-let source = document.getElementById("source");
+let source = document.querySelector("#source");
 let result = document.getElementById("result");
+let msgbox = document.getElementById("msgbox");
+let pcval = document.getElementById("pc-val");
+let addrval = document.getElementById("addr-val");
+let bufval = document.getElementById("buf-val");
+let insval = document.getElementById("ins-val");
+let statval = document.getElementById("stat-val");
 let run = document.getElementById("run");
 
+/**
+ * @param {string} msg
+ */
 function showMessage(msg) {
-    result.innerText = msg;
+    msgbox.innerText = msg;
     setTimeout(() => {
-        if (result.innerText != "Success" && result.innerText != "Ready") {
+        if (msgbox.innerText != "Success" && msgbox.innerText != "Ready") {
             result.classList.add("error");
         } else {
             result.classList.remove("error");
@@ -39,11 +48,11 @@ window.addEventListener('load', () => {
     let registers = document.getElementById("registers");
     let registerswrap = document.querySelector('.registers');
     /** @type {HTMLSelectElement} */
-    let registersmode = document.getElementById('reg-mode');
+    let registersmode = document.querySelector('#reg-mode');
     let memory = document.getElementById("memory");
     let memorywrap = document.querySelector('.memory');
     /** @type {HTMLSelectElement} */
-    let memorymode = document.getElementById('mem-mode');
+    let memorymode = document.querySelector('#mem-mode');
 
     let context = null;
 
@@ -64,57 +73,93 @@ window.addEventListener('load', () => {
         showMessage("Ready");
         let first = true;
         const Context = aqabler.Context;
+        /** @type {{row: HTMLElement, title: HTMLElement, value: HTMLElement}[]} */
         let mems = [];
+        /** @type {{row: HTMLElement, title: HTMLElement, value: HTMLElement}[]} */
         let regs = [];
+        let pc = 0;
 
         class Run extends Context {
             constructor () {
                 super();
 
+                /**
+                 * @param {HTMLElement} elm
+                 * @param {HTMLElement | null} box
+                 */
                 function showChange (elm, box) {
                     setTimeout(() => {
                         elm.classList.add("changed");
-                        box.scrollTop = elm.offsetTop
+                        if (box) {
+                            box.scrollTop = elm.offsetTop;
+                        }
                         setTimeout(() => elm.classList.remove("changed"), 1000);
                     }, 0);
                 }
 
                 this.listenReg((reg, val) => {
-                    regs[reg].title = regs[reg].innerText = Context.format(val, registersmode.value == 'signed');
-                    showChange(regs[reg], registers);
+                    if (reg == 13) {
+                        insval.innerText = Context.format(val, false).split(' ')[0];
+                        showChange(insval, null);
+                    } else if (reg == 14) {
+                        bufval.innerText = Context.format(val, false);
+                        showChange(bufval, null);
+                    } else if (reg == 15) {
+                        mems[pc].row.classList.remove("current");
+                        pcval.innerText = val;
+                        pc = val;
+                        showChange(pcval, null);
+                        mems[pc].row.classList.add("current");
+                    } else if (reg == 16) {
+                        addrval.innerText = val;
+                        showChange(addrval, null);
+                    } else if (reg == 17) {
+                        statval.innerText = val;
+                        showChange(statval, null);
+                    } else {
+                        regs[reg].row.title = regs[reg].value.innerText = Context.format(val, registersmode.value == 'signed');
+                        showChange(regs[reg].value, registers);
+                    }
                 });
 
                 this.listenMem((mem, val) => {
-                    mems[mem].title = mems[mem].innerText = Context.format(val, memorymode.value == 'signed');
-                    showChange(mems[mem], memory);
+                    mems[mem].row.title = mems[mem].value.innerText = Context.format(val, memorymode.value == 'signed');
+                    showChange(mems[mem].value, memory);
                 });
             }
 
+            /**
+             * @param {HTMLElement} registers
+             * @param {boolean} signed
+             */
             showRegs (registers, signed) {
-                let count = this.getRegCount();
-                for (let i = 0; i < count; i++) {
+                for (let i = 0; i < 13; i++) {
                     if (!regs[i]) {
                         let row = makeRow('R' + i, '');
             
-                        regs[i] = row.value;
+                        regs[i] = row;
             
                         registers.appendChild(row.row);
                     }
-                    regs[i].innerText = Context.format(this.getReg(i), signed);
+                    regs[i].value.innerText = Context.format(this.getReg(i), signed);
                 }
             }
 
+            /**
+             * @param {HTMLElement} container
+             * @param {boolean} signed
+             */
             showMem (container, signed) {
                 let count = this.getMemLength();
                 for (let i = 0; i < count; i++) {
                     if (!mems[i]) {
                         let row = makeRow(i, '');
             
-                        mems[i] = row.value;
+                        mems[i] = row;
             
                         container.appendChild(row.row);
                     }
-                    mems[i].innerText = Context.format(this.getMem(i), signed);
+                    mems[i].value.innerText = Context.format(this.getMem(i), signed);
                 }
             }
         }
@@ -171,6 +216,7 @@ window.addEventListener('load', () => {
     let currentref = undefined;
     let reftitle = document.querySelector('.reference .title');
     let pagetitlewrap = document.querySelector('.reference .page-title');
+    /** @type {HTMLDivElement} */
     let pagetitle = pagetitlewrap.querySelector('.reference .page-title .title h2');
     let backbtn = document.querySelector('.reference .page-title .back');
 
@@ -197,7 +243,7 @@ window.addEventListener('load', () => {
             pagetitlewrap.classList.remove('hidden');
             currentref = ref;
         } else {
-            console.error('Missing refrence page for ' + title);
+            console.error('Missing reference page for ' + title);
         }
     };
 

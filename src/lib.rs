@@ -3,12 +3,12 @@ use wasm_bindgen;
 use wasm_bindgen::prelude::*;
 
 use aqabler::ChangeEvent;
-use aqabler::Eval;
 use aqabler::Input;
 use aqabler::Memory;
 use aqabler::Observer;
-use aqabler::Parser;
 use aqabler::Storage;
+use aqabler::Assemble;
+use aqabler::execute;
 
 use std::rc::Rc;
 
@@ -48,20 +48,21 @@ impl Context {
     #[wasm_bindgen(constructor)]
     pub fn new() -> Self {
         Context {
-            // We have 12 registers
-            regs: Memory::create(12),
-            // This gives us 6.4k "RAM"
-            mem: Memory::create(200),
+            // We have 12 general purpose registers
+            // and 5 special registers
+            regs: Memory::create(String::from("register"), 18),
+            // Our "RAM"
+            mem: Memory::create(String::from("memory address"), 200),
             listeners: Vec::new(),
         }
     }
 
     pub fn run(&mut self, program: String) -> String {
         // Parse the program
-        match Input::from(program).parse() {
-            Ok((p, l)) => {
+        match Input::from(program).assemble(&mut self.mem) {
+            Ok(()) => {
                 // Run the program
-                if let Err(e) = p.eval(&l, &mut self.regs, &mut self.mem) {
+                if let Err(e) = execute(&mut self.mem, &mut self.regs) {
                     // Showing any error
                     e.to_string()
                 } else {
@@ -73,33 +74,28 @@ impl Context {
         }
     }
 
-    #[wasm_bindgen(js_name = getRegCount)]
-    pub fn get_reg_count(&self) -> usize {
-        self.regs.count()
-    }
-
     #[wasm_bindgen(js_name = getReg)]
-    pub fn get_reg(&self, reg: usize) -> Result<u32, JsValue> {
+    pub fn get_reg(&self, reg: u32) -> Result<u32, JsValue> {
         Ok(self
             .regs
-            .get(reg, "Register")
+            .get(reg)
             .map_err(|err| err.to_string())?)
     }
 
     #[wasm_bindgen(js_name = getMem)]
-    pub fn get_mem(&self, mem: usize) -> Result<u32, JsValue> {
+    pub fn get_mem(&self, mem: u32) -> Result<u32, JsValue> {
         Ok(self
             .mem
-            .get(mem, "Memory Address")
+            .get(mem)
             .map_err(|err| err.to_string())?)
     }
 
     #[wasm_bindgen(js_name = setMem)]
-    pub fn set_mem(&mut self, i: usize, v: u32) -> Result<(), JsValue> {
+    pub fn set_mem(&mut self, i: u32, v: u32) -> Result<(), JsValue> {
         // Wat? I know right
         Ok(self
             .mem
-            .set(i, v, "Memory")
+            .set(i, v)
             .map_err(|err| err.to_string())?)
     }
 
