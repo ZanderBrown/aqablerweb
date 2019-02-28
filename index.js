@@ -10,6 +10,9 @@ let bufval = document.getElementById("buf-val");
 let insval = document.getElementById("ins-val");
 let statval = document.getElementById("stat-val");
 let run = document.getElementById("run");
+let statusarea = document.querySelector(".status");
+/** @type {HTMLSelectElement} */
+let speed = document.getElementById("speed");
 
 /**
  * @param {string} msg
@@ -83,7 +86,7 @@ window.addEventListener('load', () => {
             constructor () {
                 super();
 
-                /**
+                /** 
                  * @param {HTMLElement} elm
                  * @param {HTMLElement | null} box
                  */
@@ -168,6 +171,7 @@ window.addEventListener('load', () => {
                 first = false;
                 registerswrap.classList.remove('hidden');
                 memorywrap.classList.remove('hidden');
+                statusarea.classList.remove('hidden');
             }
             let program = source.value;
             try {
@@ -175,7 +179,18 @@ window.addEventListener('load', () => {
                 let signed = registersmode.value == 'signed';
                 context.showRegs(registers, signed);
                 context.showMem(memory, signed);
-                showMessage(context.run(program));
+                showMessage(context.assemble(program));
+
+                function next() {
+                    let res = context.step();
+                    if (res == "~~continue") {
+                        setTimeout(next, parseInt(speed.value));
+                    } else if (res != "~~done") {
+                        showMessage(res);
+                    }
+                }
+                
+                setTimeout(next, parseInt(speed.value));
             } catch (e) {
                 showMessage("Internal Error");
                 console.error(e);

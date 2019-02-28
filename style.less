@@ -15,29 +15,33 @@
     display: flex;
     flex-direction: column;
     .title {
-        padding: 0.5rem;
-        border-bottom: 1px solid #e7e7e7;
-        font-size: 1.2rem;
         display: flex;
+        flex-direction: row;
+        padding: .15rem .5rem;
+        border-bottom: 1px solid #e7e7e7;
+
         h2 {
-            margin: 0;
-            padding: 0;
-            font-weight: normal;
-            font-size: 1.2rem;
-            display: inline-block;
             flex-grow: 1;
+            padding: .35rem 0;
+            font-size: 1.2rem;
+            margin: 0;
+            font-weight: normal;
+        }
+
+        select, button {
+            padding: 0rem .6rem;
+            margin: .15rem 0;
+            max-height: 2rem;
         }
     }
+
     .content {
         padding: 0.5rem;
         p {
             margin: .25rem 0;
         }
     }
-    .footer {
-        padding: 0.5rem;
-        border-top: 1px solid #e7e7e7;
-    }
+
     .page-title {
         .back {
             font-size: 1.2rem;
@@ -60,12 +64,6 @@
         margin: 0;
         font-size: 1rem;
     }
-}
-
-.hack01 {
-    overflow: hidden;
-    height: 0px;
-    width: 0px;
 }
 
 @keyframes changed {
@@ -92,13 +90,8 @@
     }
 }
 
-.changed {
-    animation: changed 0.6s ease-in-out
-}
-
 button,
 select {
-    float: right;
     border: none;
     background: #e7e7e7;
     color: @card-color;
@@ -114,18 +107,19 @@ select {
 }
 
 select {
-    padding: 4px;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid #919191;
 }
 
 body {
     background: #e3e3e3;
     display: grid;
-    grid-template: "header" @header-height "source" minmax(10rem, 60vh) "main" auto "reference" auto "footer" @footer-height;
+    grid-template: "header" @header-height "source" minmax(10rem, 60vh) "main" auto "info" auto "footer" @footer-height;
     @media (min-width: 35rem) {
-        grid-template: "header header" @header-height "source main" auto "source reference" auto "footer footer" @footer-height ~"/" 15rem auto;
+        grid-template: "header header" @header-height "source main" auto "source info" auto "footer footer" @footer-height ~"/" 15rem auto;
     }
     @media (min-width: 80rem) {
-        grid-template: "header header header" @header-height "source main reference" auto "footer footer footer" @footer-height ~"/" 15rem 40rem auto;
+        grid-template: "header header header" @header-height "source main info" auto "footer footer footer" @footer-height ~"/" 15rem 40rem auto;
     }
 }
 
@@ -133,10 +127,12 @@ body {
     grid-area: source;
     display: flex;
     flex-direction: column;
+
     button {
-        background: red;
+        background: #a01111;
         color: white;
     }
+
     textarea {
         border: none;
         resize: none;
@@ -148,12 +144,14 @@ body {
         border-bottom-right-radius: 2px;
         background: @card-background;
         color: @card-color;
+
         &:focus {
             background: white;
             outline: none;
             color: black;
         }
     }
+
     &:focus-within {
         box-shadow: 0 0 3px 1px #918585;
     }
@@ -166,65 +164,99 @@ main {
 
 section.main {
     grid-area: main;
+
     #result {
-        #msgbox {
-            padding: 0.5rem;
-            border-bottom: 1px solid #e7e7e7;
-            font-size: 1.2rem;
+        .title {
+            border: none;
         }
-        .status-regs {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-items: center;
-            :nth-child(odd) {
-                color: lighten(black, 30%);
-                margin: 0.5rem 0.25rem 0.5rem 0.5rem;
-            }
-            :nth-child(even) {
-                margin: 0.5rem 0.5rem 0.5rem 0.25rem;
+
+        .status {
+            border-top: 1px solid #e7e7e7;
+
+            .status-regs {
+                display: flex;
+                flex-direction: row;
+                @media (max-width: 35rem) {
+                    flex-direction: column;
+                }
+                align-items: flex-start;
+                justify-items: center;
+
+                div {
+                    margin: 0.5rem;
+
+                    * {
+                        line-height: 1rem;
+                        vertical-align: middle;
+                        font-family: 'Courier New', Courier, monospace;
+
+                        &.changed {
+                            color: #861313;
+                            transition: color .2s ease;
+                        }
+                    }
+
+                    :nth-child(odd) {
+                        color: lighten(black, 30%);
+                        margin-right: 0.5rem;
+                    }
+                }
             }
         }
+
         &.error {
             animation: pulse-err 3s infinite;
         }
     }
+
     .viewer {
         padding: 0;
+
         .data {
-            font-family: monospace;
+            font-family: 'Courier New', Courier, monospace;
             font-size: 0.9rem;
             overflow-y: auto;
             max-height: 20rem;
             position: relative;
             background: #e7e7e7;
+
             div {
                 width: 100%;
                 display: inline-flex;
+
                 @media (min-width: 20rem) {
                     width: 50%;
                 }
+
                 @media (min-width: 50rem) {
                     width: 33.33%;
                 }
+
                 span {
                     padding: 2px 5px;
                     flex-grow: 1;
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
+
+                    &.changed {
+                        animation: changed 0.6s ease-in-out
+                    }
+
                     &:first-child {
                         padding-left: 20px;
                         text-align: right;
                         min-width: 2rem;
                         display: inline-block;
                         flex-grow: 0;
-                        transition: background 1s ease-in-out;
+                        transition: background .1s ease;
                     }
+
                     &:last-child {
                         background: @card-background;
                     }
                 }
+
                 &.current {
                     span:first-child {
                         background: #afafef;
@@ -235,13 +267,18 @@ section.main {
     }
 }
 
-main.reference {
-    grid-area: reference;
+.info {
+    grid-area: info;
+}
+
+.reference {
     @media (min-width: 35rem) and (max-width: 80rem) {
         align-self: flex-end;
     }
+
     div {
         padding: 0;
+
         p.heading {
             padding: 0.5rem;
             margin: 0;

@@ -57,20 +57,18 @@ impl Context {
         }
     }
 
-    pub fn run(&mut self, program: String) -> String {
-        // Parse the program
+    pub fn assemble(&mut self, program: String) -> String {
         match Input::from(program).assemble(&mut self.mem) {
-            Ok(()) => {
-                // Run the program
-                if let Err(e) = execute(&mut self.mem, &mut self.regs) {
-                    // Showing any error
-                    e.to_string()
-                } else {
-                    "Success".into()
-                }
-            }
-            // Opps syntax error
-            Err(e) => e.to_string(),
+            Ok(()) => String::from("Success"),
+            Err(err) => err.to_string(),
+        }
+    }
+
+    pub fn step(&mut self) -> String {
+        match execute(&mut self.mem, &mut self.regs) {
+            Err(err) => err.to_string(),
+            Ok(res) if res => String::from("~~continue"),
+            Ok(_) => String::from("~~done"),
         }
     }
 
