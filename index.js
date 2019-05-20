@@ -12,6 +12,7 @@ let statval = document.getElementById("stat-val");
 let run = document.getElementById("run");
 let statusarea = document.querySelector(".status");
 /** @type {HTMLSelectElement} */
+// @ts-ignore
 let speed = document.getElementById("speed");
 
 /**

@@ -2,10 +2,13 @@
 @footer-height: 1.5rem;
 @card-background: #f7f7f7;
 @card-color: #2f2f2f;
+@card-shadow: #bfb7b7;
+@border-colour: #e7e7e7;
+
 .card {
     position: relative;
     margin: 1rem;
-    box-shadow: 0 0 3px 1px #bfb7b7;
+    box-shadow: 0 0 3px 1px @card-shadow;
     border-radius: 2px;
     background: @card-background;
     color: @card-color;
@@ -18,7 +21,7 @@
         display: flex;
         flex-direction: row;
         padding: .15rem .5rem;
-        border-bottom: 1px solid #e7e7e7;
+        border-bottom: 1px solid @border-colour;
 
         h2 {
             flex-grow: 1;
@@ -45,7 +48,7 @@
     .page-title {
         .back {
             font-size: 1.2rem;
-            border-bottom: 1px solid #e7e7e7;
+            border-bottom: 1px solid @border-colour;
             text-align: center;
             padding: 0.5rem 1rem;
             float: left;
@@ -82,7 +85,7 @@
 @keyframes pulse-err {
     0%,
     100% {
-        box-shadow: 0 0 3px 1px #bfb7b7;
+        box-shadow: 0 0 3px 1px @card-shadow;
     }
     10%,
     90% {
@@ -93,7 +96,7 @@
 button,
 select {
     border: none;
-    background: #e7e7e7;
+    background: @border-colour;
     color: @card-color;
     border-radius: 2px;
     min-width: 3.5rem;
@@ -171,7 +174,7 @@ section.main {
         }
 
         .status {
-            border-top: 1px solid #e7e7e7;
+            border-top: 1px solid @border-colour;
 
             .status-regs {
                 display: flex;
@@ -218,7 +221,7 @@ section.main {
             overflow-y: auto;
             max-height: 20rem;
             position: relative;
-            background: #e7e7e7;
+            background: @border-colour;
 
             div {
                 width: 100%;
@@ -279,56 +282,87 @@ section.main {
     div {
         padding: 0;
 
-        p.heading {
+        .heading {
             padding: 0.5rem;
             margin: 0;
             font-size: 1.1rem;
-            border-top: 1px solid #e7e7e7;
+            border-top: 1px solid @border-colour;
             user-select: none;
             -moz-user-select: none;
             transition: background 0.5s ease-in-out;
+            color: @card-color;
+            text-decoration: none;
+            display: block;
+
             &:first-of-type {
                 border: none;
             }
+
             &:hover,
             &:focus {
                 background: darken(@card-background, 5%);
+                text-decoration: lighten(@card-color, 50%) underline;
             }
         }
+
         ul {
             padding: 0;
             margin: 0;
             list-style: none;
             display: none;
+
             &.expanded {
                 display: block;
             }
-            li {
+
+            li a {
                 padding: 0.3rem 0.5rem;
                 user-select: none;
                 -moz-user-select: none;
                 transition: background 0.5s ease-in-out;
+                color: @card-color;
+                text-decoration: none;
+                display: block;
+
                 &:hover,
                 &:focus {
                     background: darken(@card-background, 5%);
+                    text-decoration: lighten(@card-color, 50%) underline;
                 }
             }
         }
     }
+
     .page {
         padding: .5rem;
         font-size: 1rem;
         max-height: 25rem;
         overflow: auto;
+
         p {
             margin: .25rem 0;
         }
+
         code {
             display: block;
+            font-family: 'Courier New', Courier, monospace;
         }
+
         em {
-            text-shadow: 0px 0px 1px;
+            font-weight: 600;
         }
+    }
+}
+
+blockquote {
+    margin: 1rem 1.5rem;
+
+    footer {
+        text-align: right;
+
+        cite {
+            font-weight: 600;
+        }    
     }
 }
 
@@ -340,7 +374,7 @@ html {
 }
 
 body {
-    header {
+    > header {
         background: #3030d8;
         color: white;
         grid-area: header;
@@ -348,6 +382,7 @@ body {
         line-height: @header-height;
         display: flex;
         flex-direction: row;
+
         h1 {
             margin: 0;
             font-size: 1rem;
@@ -356,31 +391,48 @@ body {
             padding-left: .5rem;
             flex-grow: 1;
         }
+
         img {
             padding: 0;
             padding-left: .5rem;
         }
+
         * {
             padding-right: 1.5rem;
             height: @header-height;
         }
     }
-    footer {
+
+    > footer {
         background: black;
         color: white;
         grid-area: footer;
         height: @footer-height;
         text-align: right;
+
         a {
             color: white !important;
             padding: 0 0.3rem;
             text-decoration: none;
             line-height: @footer-height;
             display: inline-block;
+            
             &:hover,
             &:focus {
                 background: lighten(black, 10%);
             }
+        }
+    }
+}
+
+.welcome {
+    ul {
+        list-style: none;
+        margin: 0.5rem;
+        padding: 0;
+
+        li {
+            margin: 0.25rem;
         }
     }
 }
