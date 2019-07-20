@@ -12,3 +12,7 @@ faviconData.json
 icons
 aqablerweb
 tmp
+dist
+.cache
+wasm-pack.log
+pkg

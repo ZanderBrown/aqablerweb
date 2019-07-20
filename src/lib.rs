@@ -1,6 +1,7 @@
 use js_sys;
 use wasm_bindgen;
 use wasm_bindgen::prelude::*;
+use wasm_bindgen::JsCast;
 
 use aqabler::ChangeEvent;
 use aqabler::Input;
@@ -23,7 +24,7 @@ struct Listen(JsValue);
 impl Observer<ChangeEvent> for Listen {
     fn notify(&self, evt: ChangeEvent) {
         let this = JsValue::NULL;
-        if let Some(func) = js_sys::Function::try_from(&self.0) {
+        if let Some(func) = &self.0.dyn_ref::<js_sys::Function>() {
             match func.call2(
                 &this,
                 &JsValue::from(evt.idx as u32),
