@@ -1,24 +1,22 @@
-all: rust bind gulp
-
-rust:
-	cargo +nightly build --target wasm32-unknown-unknown --release
-
-bind:
-	wasm-bindgen target/wasm32-unknown-unknown/release/aqablerweb.wasm --out-dir .
-
-gulp: faviconData.json
-	gulp
-
-faviconData.json:
-	gulp favicons
+all: parcel
 
 serve:
-	npm run serve
+	npx ws --https
+
+dev:
+	parcel index.html
 
 clean:
 	rm -rf docs
-	rm -rf icons
-	rm aqablerweb.js
-	rm aqablerweb.d.ts
-	rm aqablerweb_bg.wasm
+	rm -rf pkg
+	rm -rf .cache
 	cargo clean
+
+parcel:
+	mkdir -p docs
+	cp robots.txt docs/
+	# For search etc that just looks for favicon.ico
+	cp favicon.ico docs/favicon.ico
+	parcel build index.html -d docs --public-url=/aqablerweb -t browser --detailed-report --no-source-maps
+	# The bindgen plugin has a bug and the toml gets emited
+	rm docs/Cargo*

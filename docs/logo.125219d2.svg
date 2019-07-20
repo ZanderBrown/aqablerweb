@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="512"
+   height="512"
+   viewBox="0 0 135.46667 135.46666"
+   version="1.1"
+   id="svg8">
+  <metadata
+     id="metadata887">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs2">
+    <linearGradient
+       id="linearGradient852">
+      <stop
+         style="stop-color:#e4301a;stop-opacity:1"
+         offset="0"
+         id="stop848" />
+      <stop
+         style="stop-color:#614aff;stop-opacity:0;"
+         offset="1"
+         id="stop850" />
+    </linearGradient>
+    <filter
+       style="color-interpolation-filters:sRGB"
+       id="filter846">
+      <feFlood
+         flood-opacity="0.643137"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood836" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite838" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="2"
+         result="blur"
+         id="feGaussianBlur840" />
+      <feOffset
+         dx="2"
+         dy="2"
+         result="offset"
+         id="feOffset842" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite844" />
+    </filter>
+    <linearGradient
+       xlink:href="#linearGradient852"
+       id="linearGradient854"
+       x1="110"
+       y1="1072.5197"
+       x2="280"
+       y2="932.51965"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(22.5,-956.20823)" />
+  </defs>
+  <g
+     id="layer1"
+     transform="matrix(1.8962961,0,0,1.8962961,11.288895,-457.53747)">
+    <path
+       style="opacity:1;fill:url(#linearGradient854);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2.64566922;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal;filter:url(#filter846)"
+       d="m 234.10156,15.121094 c -1.91403,-0.009 -4.10156,0.0078 -6.60156,0.0078 H 79.193359 C 44.19336,15.128716 22.5,36.822306 22.5,71.822266 v 75.589844 c 0,18.8976 7.99e-4,18.89844 18.898438,18.89844 H 192.5 c 30,0 55,-25 55,-55 V 34.027344 c 0,-17.50001 -1.8e-4,-18.84382 -13.39844,-18.90625 z M 47.5,116.31055 h 5 v 10 h 10 v -10 h 5 v 10 h 10 v 5 h -10 v 10 h 10 v 5 h -10 v 10 h -5 v -10 h -10 v 10 h -5 v -10 h -10 v -5 h 10 v -10 h -10 v -5 h 10 z m 5,15 v 10 h 10 v -10 z"
+       transform="matrix(0.26458333,0,0,0.26458333,-5.9531249,252.99676)"
+       id="rect815" />
+  </g>
+</svg>
