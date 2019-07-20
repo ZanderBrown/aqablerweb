@@ -8,11 +8,10 @@ aqablerweb_bg.wasm
 aqablerweb_bg.d.ts
 aqablerweb.js
 aqablerweb.d.ts
-faviconData.json
-icons
 aqablerweb
 tmp
 dist
 .cache
 wasm-pack.log
 pkg
+docs2
