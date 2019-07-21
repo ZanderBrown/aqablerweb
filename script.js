@@ -50,41 +50,15 @@ if (!('WebAssembly' in window)) {
 
 import { Context } from "./Cargo.toml";
 
-let registers = document.getElementById("registers");
-let registerswrap = document.querySelector('.registers');
-/** @type {HTMLSelectElement} */
-let registersmode = document.querySelector('#reg-mode');
-let memory = document.getElementById("memory");
-let memorywrap = document.querySelector('.memory');
-/** @type {HTMLSelectElement} */
-let memorymode = document.querySelector('#mem-mode');
-
-let context = null;
-
-registersmode.addEventListener('change', () => {
-    if (context) {
-        context.showRegs(registers, registersmode.value == 'signed');
-    }
-});
-
-memorymode.addEventListener('change', () => {
-    if (context) {
-        context.showMem(registers, memorymode.value == 'signed');
-    }
-});
-
-showMessage("Ready");
-let first = true;
-//const Context = aqabler.Context;
-/** @type {{row: HTMLElement, title: HTMLElement, value: HTMLElement}[]} */
-let mems = [];
 /** @type {{row: HTMLElement, title: HTMLElement, value: HTMLElement}[]} */
 let regs = [];
-let pc = 0;
+/** @type {{row: HTMLElement, title: HTMLElement, value: HTMLElement}[]} */
+let mems = [];
 
 class Run {
-    constructor () {
+    constructor (registers, registersmode, memory, memorymode) {
         this.context = new Context ();
+        this.pc = 0;
         /** 
          * @param {HTMLElement} elm
          * @param {HTMLElement | null} box
@@ -107,11 +81,11 @@ class Run {
                 bufval.innerText = Context.format(val, false);
                 showChange(bufval, null);
             } else if (reg == 15) {
-                mems[pc].row.classList.remove("current");
+                mems[this.pc].row.classList.remove("current");
                 pcval.innerText = val;
-                pc = val;
+                this.pc = val;
                 showChange(pcval, null);
-                mems[pc].row.classList.add("current");
+                mems[this.pc].row.classList.add("current");
             } else if (reg == 16) {
                 addrval.innerText = val;
                 showChange(addrval, null);
@@ -143,7 +117,9 @@ class Run {
     
                 registers.appendChild(row.row);
             }
-            regs[i].value.innerText = Context.format(this.context.getReg(i), signed);
+            let text = Context.format(this.context.getReg(i), signed);
+            regs[i].value.innerText = text;
+            regs[i].value.title = text;
         }
     }
 
@@ -161,10 +137,40 @@ class Run {
     
                 container.appendChild(row.row);
             }
-            mems[i].value.innerText = Context.format(this.context.getMem(i), signed);
+            let text = Context.format(this.context.getMem(i), signed);
+            mems[i].value.innerText = text;
+            mems[i].value.title = text;
         }
     }
 }
+
+let registers = document.getElementById("registers");
+let registerswrap = document.querySelector('.registers');
+/** @type {HTMLSelectElement} */
+let registersmode = document.querySelector('#reg-mode');
+let memory = document.getElementById("memory");
+let memorywrap = document.querySelector('.memory');
+/** @type {HTMLSelectElement} */
+let memorymode = document.querySelector('#mem-mode');
+
+
+let context = null;
+
+registersmode.addEventListener('change', () => {
+    if (context) {
+        context.showRegs(registers, registersmode.value == 'signed');
+    }
+});
+
+memorymode.addEventListener('change', () => {
+    if (context) {
+        context.showMem(memory, memorymode.value == 'signed');
+    }
+});
+
+showMessage("Ready");
+let first = true;
+
 run.addEventListener("click", () => {
     if (first) {
         first = false;
@@ -174,22 +180,31 @@ run.addEventListener("click", () => {
     }
     let program = source.value;
     try {
-        context = new Run();
+        context = new Run(registers, registersmode, memory, memorymode);
         let signed = registersmode.value == 'signed';
         context.showRegs(registers, signed);
         context.showMem(memory, signed);
-        showMessage(context.context.assemble(program));
 
-        function next() {
-            let res = context.context.step();
-            if (res == "~~continue") {
-                setTimeout(next, parseInt(speed.value));
-            } else if (res != "~~done") {
-                showMessage(res);
+        let res = context.context.assemble(program);
+    
+        if (res == 'Success') {
+            showMessage('Running...');
+
+            function next() {
+                let res = context.context.step();
+                if (res == "~~continue") {
+                    setTimeout(next, parseInt(speed.value));
+                } else if (res != "~~done") {
+                    showMessage(res);
+                } else {
+                    showMessage('Ready');
+                }
             }
+            
+            setTimeout(next, parseInt(speed.value));
+        } else {
+            showMessage(res);
         }
-        
-        setTimeout(next, parseInt(speed.value));
     } catch (e) {
         showMessage("Internal Error");
         console.error(e);

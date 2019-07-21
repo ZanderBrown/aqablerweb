@@ -19,4 +19,4 @@ parcel:
 	cp favicon.ico docs/favicon.ico
 	parcel build index.html -d docs --public-url=/aqablerweb -t browser --detailed-report --no-source-maps
 	# The bindgen plugin has a bug and the toml gets emited
-	rm docs/Cargo*
+	rm  -f docs/Cargo*

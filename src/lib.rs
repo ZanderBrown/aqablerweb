@@ -41,7 +41,7 @@ impl Observer<ChangeEvent> for Listen {
 pub struct Context {
     regs: Memory,
     mem: Memory,
-    listeners: Vec<Rc<Observer<ChangeEvent>>>,
+    listeners: Vec<Rc<dyn Observer<ChangeEvent>>>,
 }
 
 #[wasm_bindgen]
